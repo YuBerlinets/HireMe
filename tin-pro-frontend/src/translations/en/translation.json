@@ -1,0 +1,19 @@
+{
+    "footer": {
+        "language": "Language"
+    },
+    "header": {
+        "dashboard": "Dashboard",
+        "logout": "Logout",
+        "register": "Register",
+        "login": "Login",
+        "profile": "Profile"
+    },
+    "errorPage": {
+        "return": "Return to the main page",
+        "404": {
+            "status": "404 Not Found",
+            "message": "The page you are looking for might have been removed had its name changed or is temporarily unavailable."
+        }
+    }
+}

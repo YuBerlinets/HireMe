@@ -1,0 +1,12 @@
+{
+    "footer": {
+        "language": "Мова"
+    },
+    "header": {
+        "dashboard": "Панель керування",
+        "logout": "Вийти",
+        "register": "Реєстрація",
+        "login": "Увійти",
+        "profile": "Профіль"
+    }
+}
