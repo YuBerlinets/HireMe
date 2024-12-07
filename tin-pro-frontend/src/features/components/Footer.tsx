@@ -15,9 +15,9 @@ export default function Footer() {
             <div className="footer_content">
 
                 <div className="footer_nav">
-                    <a onClick={() => navigate("#")}>Template1</a>
-                    <a onClick={() => navigate("#")}>Template2</a>
-                    <a onClick={() => navigate("#")}>Template3</a>
+                    <a onClick={() => navigate("#")}>{t('footer.privacyPolicy')}</a>
+                    <a onClick={() => navigate("#")}>{t('footer.termsOfService')}</a>
+                    <a onClick={() => navigate("#")}>{t('footer.contactUs')}</a>
                 </div>
                 <div className="footer_language_switch">
                     <p >{t('footer.language')}</p>
@@ -26,7 +26,7 @@ export default function Footer() {
 
                 </div>
             </div>
-            <p className="footer_bottom">TIN {new Date().getFullYear()}</p>
+            <p className="footer_bottom">HireMe {new Date().getFullYear()}</p>
         </footer>
     )
 }

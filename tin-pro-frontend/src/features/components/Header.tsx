@@ -23,7 +23,7 @@ export default function Header() {
         <header className="header">
             <nav className="header_navbar">
                 <h1 onClick={() => navigate("/")} className="header_item header_logo">
-                    <a>TIN</a>
+                    <a>HireMe</a>
                 </h1>
                 <ul>
                     <li onClick={() => navigate("/")} className="header_item">

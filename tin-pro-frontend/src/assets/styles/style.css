@@ -17,24 +17,23 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: #161A30;
+    background-color: #f8f8f8;
     margin: 0 auto;
-    max-width: 1440px;
-    color: #fff;
+    color: #000;
     border-radius: 0 0 10px 10px;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1440px;
+    /* max-width: 1440px; */
     width: 100%;
-    background-color: #F0ECE5;
-    color: #000;
-    margin: 0 auto;
+    background-color: #f8f8f8;
+    color: #222222;
+    /* margin: 0 20px 0 20px; */
     margin-top: auto;
     padding: 20px 0 0 0;
 }
@@ -66,9 +65,11 @@ footer {
 .header_navbar {
     display: flex;
     width: 100%;
+    max-width: 1440px;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 20px;
+    margin: 10px auto;
+    padding: 0 20px;
 }
 
 .header_navbar ul {
@@ -81,7 +82,11 @@ footer {
 
 .header_navbar ul li {
     list-style: none;
-    color: #fff;
+    color: #222222;
+}
+
+.header_navbar ul li:hover {
+    color: #4B5945;
 }
 
 .header_item {
@@ -93,8 +98,13 @@ footer {
 }
 
 .header_logo {
+    color: #222222;
     margin: 0;
     font-size: 28px;
+}
+
+.header_logo:hover {
+    color: #4B5945;
 }
 
 .header_account_logo {
@@ -134,14 +144,77 @@ footer {
     cursor: pointer;
 }
 
+.candidates_actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.candidates_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.candidate_card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #D8D9DA;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.candidate_card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.candidate_card_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+
+}
+
+.candidate_card_info {
+    font-size: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.candidate_card_info h3 {
+    grid-column: span 3;
+    font-size: 22px;
+    margin: 0;
+}
+
+.candidate_card_info p {
+    margin: 0;
+}
+
+
+
+
+
 
 .footer_content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin: 0 20px;
-
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 .footer_nav {
@@ -166,7 +239,7 @@ footer {
     margin: 10px 0 0 0;
     text-align: center;
     color: #8a8a8a;
-    background-color: #31304D;
+    background-color: #e4e4e4;
 }
 
 

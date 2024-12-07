@@ -1,6 +1,9 @@
 {
     "footer": {
-        "language": "Language"
+        "language": "Language",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "contactUs": "Contact Us"
     },
     "header": {
         "dashboard": "Dashboard",
@@ -14,6 +17,23 @@
         "404": {
             "status": "404 Not Found",
             "message": "The page you are looking for might have been removed had its name changed or is temporarily unavailable."
+        }
+    },
+    "mainPage": {
+        "title": "Candidates",
+        "description": "Here you can find the best candidates for your company",
+        "filters": {
+            "title": "Filters",
+            "byExperience": "Years of experience",
+            "byPosition": "Position",
+            "bySalary": "Salary"
+        }
+    },
+    "candidate": {
+        "list": {
+            "years": "{{years}} years of experience",
+            "position": "Position: {{position}}",
+            "salary": "Desired Salary: {{salary}}"
         }
     }
 }
