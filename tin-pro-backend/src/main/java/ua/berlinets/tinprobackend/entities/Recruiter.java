@@ -13,13 +13,13 @@ public class Recruiter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String company;
 
-    @Column(nullable = false)
+    @Column
     private String position;
 
     @OneToOne
