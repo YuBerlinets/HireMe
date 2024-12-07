@@ -18,6 +18,10 @@ public class JobCandidate {
     @JoinColumn(name = "candidate_id", nullable = false)
     private Candidate candidate;
 
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id", nullable = false)
+    private Recruiter recruiter;
+
     @Column(nullable = false)
     private String status;
 

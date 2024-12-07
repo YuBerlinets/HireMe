@@ -17,12 +17,6 @@ import ua.berlinets.tinprobackend.repositories.CandidateRepository;
 import ua.berlinets.tinprobackend.repositories.RecruiterRepository;
 import ua.berlinets.tinprobackend.repositories.UserRepository;
 
-import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class AuthService {

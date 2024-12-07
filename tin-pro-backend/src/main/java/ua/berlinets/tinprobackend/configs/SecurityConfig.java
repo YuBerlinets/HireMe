@@ -29,7 +29,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
-                                .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/register", "/api/users/refresh-token", "/api/users/reset-password").permitAll()
+                                .requestMatchers("/swagger-ui.html").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/auth/candidate/register", "/api/users/refresh-token", "/api/auth/recruiter/register").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/users/reset-password", "/api/users/verify-reset-password-code").permitAll()
                                 .requestMatchers("/api/users", "/api/users/**").hasAnyRole(RoleEnum.RECRUITER.name(), RoleEnum.ADMIN.name(), RoleEnum.CANDIDATE.name())
                                 .requestMatchers("/api/admin", "/api/admin/**").hasAnyRole(RoleEnum.ADMIN.name())
