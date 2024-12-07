@@ -44,7 +44,6 @@ public class AuthController {
         try {
             return ResponseEntity.ok(authService.registerRecruiter(registerRequest));
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

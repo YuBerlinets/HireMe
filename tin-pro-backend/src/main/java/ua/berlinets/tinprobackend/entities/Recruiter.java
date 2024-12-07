@@ -14,9 +14,6 @@ public class Recruiter {
     private long id;
 
     @Column
-    private String name;
-
-    @Column
     private String company;
 
     @Column

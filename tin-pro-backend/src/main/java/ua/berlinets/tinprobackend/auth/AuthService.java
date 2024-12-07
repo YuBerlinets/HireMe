@@ -1,6 +1,7 @@
 package ua.berlinets.tinprobackend.auth;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import ua.berlinets.tinprobackend.configs.JwtService;
 import ua.berlinets.tinprobackend.dto.auth.AuthenticationRequest;
 import ua.berlinets.tinprobackend.dto.auth.AuthenticationResponse;
 import ua.berlinets.tinprobackend.dto.auth.RegisterRequest;
+import ua.berlinets.tinprobackend.dto.user.UserLoginDTO;
 import ua.berlinets.tinprobackend.entities.Candidate;
 import ua.berlinets.tinprobackend.entities.Recruiter;
 import ua.berlinets.tinprobackend.entities.User;
@@ -26,6 +28,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService customUserDetailsService;
+    private final ModelMapper modelMapper;
 
     public AuthenticationResponse login(AuthenticationRequest request) {
 
@@ -40,9 +43,12 @@ public class AuthService {
         String jwtToken = jwtService.generateAccessToken(userDetails);
         String refreshToken = jwtService.generateRefreshToken();
 
+        UserLoginDTO userLoginDTO = modelMapper.map(user, UserLoginDTO.class);
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .refreshToken(refreshToken)
+                .user(userLoginDTO)
                 .message("Login successful.")
                 .build();
     }
@@ -59,6 +65,8 @@ public class AuthService {
         }
 
         User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(RoleEnum.CANDIDATE);
@@ -66,7 +74,6 @@ public class AuthService {
 
         Candidate candidate = new Candidate();
         candidate.setUser(user);
-        candidate.setName(request.getName());
         candidateRepository.save(candidate);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmail());
@@ -93,13 +100,14 @@ public class AuthService {
 
         User user = new User();
         user.setEmail(request.getEmail());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(RoleEnum.RECRUITER);
         userRepository.save(user);
 
         Recruiter recruiter = new Recruiter();
         recruiter.setUser(user);
-        recruiter.setName(request.getName());
         recruiterRepository.save(recruiter);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmail());

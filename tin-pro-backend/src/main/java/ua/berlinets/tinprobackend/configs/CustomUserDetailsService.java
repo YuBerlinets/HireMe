@@ -18,11 +18,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userService.getUserByEmail(email)
-                .map(user -> User.builder()
-                        .username(user.getEmail())
-                        .password(user.getPassword())
-                        .roles(user.getRole().name())
-                        .build())
+                .map(this::mapToUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + email + " not found"));
+    }
+
+    private UserDetails mapToUserDetails(ua.berlinets.tinprobackend.entities.User user) {
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .authorities(user.getRole().name())
+                .build();
     }
 }

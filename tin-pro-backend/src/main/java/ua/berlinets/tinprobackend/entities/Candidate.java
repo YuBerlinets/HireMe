@@ -13,9 +13,6 @@ public class Candidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
-    private String name;
-
     @Column
     private int yearsOfExperience;
 
@@ -28,8 +25,8 @@ public class Candidate {
     @Column
     private String aboutMe;
 
-    @Column
-    private String cv;
+    @Lob
+    private byte[] cv;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)

@@ -12,7 +12,8 @@ import ua.berlinets.tinprobackend.enums.RoleEnum;
 @AllArgsConstructor
 public class RegisterRequest {
     private String email;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String password;
     private RoleEnum type;
 }

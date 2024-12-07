@@ -24,7 +24,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -34,28 +34,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        String username;
+        final String username;
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
+
         jwt = authHeader.substring(7);
+
         try {
             username = jwtService.extractUsername(jwt);
         } catch (ExpiredJwtException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
-        } catch (MalformedJwtException e){
+        } catch (MalformedJwtException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Malformed token");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
@@ -66,10 +66,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authToken);
-//                    logger.info("Authentication successful for user: " + username);
                 }
             } catch (Exception e) {
-                logger.error("Error during authentication: " + e.getMessage());
+                logger.error("Error during authentication: ", e);
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
+                return;
             }
         }
 
