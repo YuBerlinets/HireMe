@@ -264,6 +264,11 @@ footer {
     margin: 0;
 }
 
+.auth_title {
+    font-size: 28px;
+    text-align: center;
+    margin: 40px 0;
+}
 
 .auth_form {
     display: flex;
@@ -271,6 +276,12 @@ footer {
     max-width: 400px;
     margin: 0 auto;
     gap: 10px;
+}
+
+.ant-input-outlined:focus-within,
+.ant-input-outlined:hover {
+    border-color: #161A30;
+    box-shadow: 0 0 0 2px rgba(22, 26, 48, 0.1);
 }
 
 .acc_type {
@@ -282,6 +293,26 @@ footer {
     margin: 0 10px;
 }
 
+.acc_type {
+    .ant-switch-checked {
+        background-color: #161A30 !important;
+    }
+}
+
+
+.submit_button {
+    background-color: #161A30;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit_button:hover {
+    background-color: #31304D;
+}
 
 /*
 #272829

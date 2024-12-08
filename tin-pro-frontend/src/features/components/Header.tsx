@@ -3,7 +3,8 @@ import "../../assets/styles/style.css";
 import { useEffect, useState } from "react";
 import { VscAccount } from "react-icons/vsc";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { logout } from "../auth/slices/authSlice";
 
 export default function Header() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -11,6 +12,7 @@ export default function Header() {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const dispatch = useAppDispatch();
 
     const isLoggedIn = useAppSelector((state) => state.auth.isAuthenticated);
 
@@ -63,7 +65,7 @@ export default function Header() {
                                             <li onClick={() => navigate("/profile")}>
                                                 <a>{t('header.profile')}</a>
                                             </li>
-                                            <li onClick={() => navigate("/logout")}>
+                                            <li onClick={() => dispatch(logout())}>
                                                 <a>{t('header.logout')}</a>
                                             </li>
                                         </ul>

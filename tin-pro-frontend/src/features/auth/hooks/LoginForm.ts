@@ -5,7 +5,7 @@ import { login } from '../slices/authSlice';
 import { useAppDispatch } from '../../../app/store/store';
 
 interface LoginData {
-    username: string;
+    login: string;
     password: string;
 }
 
@@ -18,7 +18,7 @@ interface UseLoginFormReturn {
 
 export const useLoginForm = (): UseLoginFormReturn => {
     const [loginData, setLoginData] = useState<LoginData>({
-        username: '',
+        login: '',
         password: ''
     });
     const [loginError, setLoginError] = useState<string>('');
@@ -36,7 +36,7 @@ export const useLoginForm = (): UseLoginFormReturn => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        if (loginData.username === '' || loginData.password === '') {
+        if (loginData.login === '' || loginData.password === '') {
             setLoginError(t('login.error.empty'));
             return;
         }
@@ -44,7 +44,7 @@ export const useLoginForm = (): UseLoginFormReturn => {
         try {
             const result = await dispatch(login(loginData)).unwrap();
             if (result.user) {
-                window.location.href = '/';
+                navigate('/');
             }
         } catch (error) {
             setLoginError(t('login.error.invalid'));

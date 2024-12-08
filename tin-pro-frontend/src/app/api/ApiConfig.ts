@@ -30,8 +30,8 @@ apiInstance.interceptors.request.use(
 const api = {
     user: {
         getUserInfo: () => apiInstance.get('/api/users/basic-information'),
-        candidateRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/candidate/register', candidateRegister),
-        recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister),
+        candidateRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/candidate/register',  candidateRegister ),
+        recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister ),
         authenticate: (login: string, password: string) => apiInstance.post('/api/auth/login', { login, password }),
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
     },

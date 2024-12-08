@@ -14,7 +14,7 @@ export default function RegisterPage() {
     return (
         <>
             <div className="container">
-                <h1>Register</h1>
+                <h1 className="auth_title">{t('header.register')}</h1>
                 <form onSubmit={handleSubmit} className="auth_form" noValidate>
 
                     <div className="acc_type">
