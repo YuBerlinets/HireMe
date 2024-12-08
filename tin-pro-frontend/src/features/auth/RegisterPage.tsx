@@ -65,6 +65,8 @@ export default function RegisterPage() {
 
                     <button type="submit" className="submit_button">{t('buttons.submit')}</button>
                 </form>
+                {errorMessage && <div className="error_message">{errorMessage}</div>}
+                {successMessage && <div className="success_message">{successMessage}</div>}
             </div>
 
         </>

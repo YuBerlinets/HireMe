@@ -6,12 +6,13 @@ interface CandidateItemProps {
     yearsOfExperience: number
     desiredPosition: string
     desiredSalary: string
+    onClick?: () => void
 }
 
 export default function CandidateItem(props: CandidateItemProps) {
     const { t } = useTranslation();
     return (
-        <div className="candidate_card">
+        <div className="candidate_card" onClick={props.onClick}>
             <div className="candidate_card_image">
                 <img src="https://via.placeholder.com/60" alt="candidate" />
             </div>

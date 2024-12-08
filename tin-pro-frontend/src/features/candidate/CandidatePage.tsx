@@ -16,15 +16,15 @@ export interface Candidate {
 
 export default function CandidatePage() {
     const [candidate, setCandidate] = useState<Candidate>({
-        firstName: "",
-        lastName: "",
-        email: "",
-        aboutMe: "",
-        yearsOfExperience: 0,
-        desiredSalary: 0.0,
-        desiredPosition: "",
-        skills: "",
-        cv: new Blob()
+        firstName: "John",
+        lastName: "Doe",
+        email: "john.doe@example.com",
+        aboutMe: "A passionate software developer with expertise in full-stack development, eager to contribute to cutting-edge projects.",
+        yearsOfExperience: 5,
+        desiredPosition: "Senior Software Engineer",
+        desiredSalary: 120000,
+        skills: "JavaScript, TypeScript, React, Node.js, Java, Spring Boot, SQL, AWS, Node.js, Java, Spring Boot, SQL, Spring Boot, SQL, AWS, Node.js, Java, Spring Boot, AWS",
+        cv: new Blob(["Sample CV content"], { type: "application/pdf" }), // Mock Blob for testing
     });
     const [isUserRecruiter, setUserRecruiter] = useState(false);
 
@@ -39,30 +39,43 @@ export default function CandidatePage() {
 
     const { t } = useTranslation();
     return (
-        <>
-            <h1>Candidate Page</h1>
+        <div className="container">
+
             <div className="candidate_page">
                 <div className="candidate_info">
-                    <p className="about_me_text">
-                        {candidate.aboutMe}
-                    </p>
+                    <h1>{candidate.desiredPosition}</h1>
                     <div className="skills">
-                        {candidate.skills.split(",").map((skill, index) => {
-                            return (
-                                <div key={index} className="skill_bar">
-                                    <span className="skill_bar_inner">
-                                        {skill}
-                                    </span>
-                                </div>
-                            )
-                        })}
+                        <p className="section_title">{t('candidate.titles.skills')}</p>
+                        <div className="skills_list">
+
+                            {candidate.skills.split(",").map((skill, index) => {
+                                return (
+                                    <div key={index} className="skill_bar">
+                                        <span className="skill_bar_inner">
+                                            {skill}
+                                        </span>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
+                    <div className="about_me">
+                        <p className="section_title">{t('candidate.titles.aboutMe')}</p>
+                        <p className="about_me_text">
+                            {candidate.aboutMe}
+                        </p>
+                    </div>
+
                     <div className="experience_years">
+                        <p className="section_title">{t('candidate.titles.years')}</p>
                         Years: {candidate.yearsOfExperience}
                     </div>
                     {isUserRecruiter && (
                         <div className="candidate_cv">
-                            Candidate cv template
+                            <p className="section_title">{t('candidate.titles.cv')}</p>
+                            <a href={URL.createObjectURL(candidate.cv)} download>
+                                {t('candidate.download')}
+                            </a>
                         </div>
                     )}
                 </div>
@@ -72,6 +85,7 @@ export default function CandidatePage() {
                     <span className="candidate_desc_inner">{t('candidate.list.salary', { salary: candidate.desiredSalary })}</span>
                 </div>
             </div>
-        </>
+        </div>
+
     )
 };

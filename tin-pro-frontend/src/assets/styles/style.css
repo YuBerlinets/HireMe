@@ -152,11 +152,17 @@ footer {
     padding: 10px 0;
 }
 
+.candidates_filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .candidates_list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .candidate_card {
@@ -232,8 +238,8 @@ footer {
     padding: 5px 0;
     margin: 10px 0 0 0;
     text-align: center;
-    color: #8a8a8a;
-    background-color: #e4e4e4;
+    color: #fff;
+    background-color: #161A30;
 }
 
 
@@ -300,6 +306,40 @@ footer {
 }
 
 
+.action_button {
+    background-color: #161a30;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+.action_button:hover {
+    background-color: #31304d;
+}
+
+.action_button.filter {
+    border: 1px solid #161a30;
+}
+
+.action_button.filter:not(.active):hover {
+    background-color: #31304D;
+    color: #fff;
+}
+
+.action_button.filter:not(.active) {
+    background-color: #fff;
+    border: 1px solid #161a30;
+    color: #000;
+}
+
+.action_button.filter.active {
+    background-color: #161a30;
+    color: #fff;
+}
+
 .submit_button {
     background-color: #161A30;
     color: #fff;
@@ -311,6 +351,70 @@ footer {
 }
 
 .submit_button:hover {
+    background-color: #31304D;
+}
+
+
+.candidate_page {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin: 10px 0;
+}
+
+.section_title {
+    font-size: 24px;
+    margin: 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(22, 26, 48, 0.4);
+}
+
+.candidate_info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 10px;
+}
+
+.candidate_info h1 {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.candidate_desc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 20%;
+    height: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 40px;
+    border: 2px solid #161A30;
+}
+
+.candidate_desc:nth-child(1) {
+    font-size: 30px;
+}
+
+.skills_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skill_bar {
+    background-color: #161A30;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #161A30;
+    transition: all 0.3s ease-in-out;
+}
+
+.skill_bar:hover {
     background-color: #31304D;
 }
 

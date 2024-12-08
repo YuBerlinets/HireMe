@@ -38,6 +38,12 @@
             "years": "{{years}} years of experience",
             "position": "Position: {{position}}",
             "salary": "Desired Salary: {{salary}}"
+        },
+        "titles": {
+            "aboutMe": "About Me",
+            "years": "Years of experience",
+            "skills": "Skills",
+            "cv": "CV"
         }
     },
     "auth": {
