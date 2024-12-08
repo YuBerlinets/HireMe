@@ -1,4 +1,7 @@
 {
+    "buttons": {
+        "submit": "Submit"
+    },
     "footer": {
         "language": "Language",
         "privacyPolicy": "Privacy Policy",
@@ -6,7 +9,8 @@
         "contactUs": "Contact Us"
     },
     "header": {
-        "dashboard": "Dashboard",
+        "jobs": "Jobs",
+        "candidates": "Candidates",
         "logout": "Logout",
         "register": "Register",
         "login": "Login",
@@ -34,6 +38,20 @@
             "years": "{{years}} years of experience",
             "position": "Position: {{position}}",
             "salary": "Desired Salary: {{salary}}"
+        }
+    },
+    "auth": {
+        "email": "Email",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "password": "Password",
+        "recruiter": "Recruiter",
+        "candidate": "Candidate",
+        "example": {
+            "email": "example@hire.me",
+            "firstName": "John",
+            "lastName": "Doe",
+            "password": "At least 8 characters length"
         }
     }
 }

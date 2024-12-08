@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { RegisterData } from '../../features/auth/hooks/RegisterForm';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -29,12 +30,13 @@ apiInstance.interceptors.request.use(
 const api = {
     user: {
         getUserInfo: () => apiInstance.get('/api/users/basic-information'),
-        register: (username: string, firstName: string, lastName: string, email: string, password: string, repeatPassword: string, preferredLanguage: string) => apiInstance.post('/api/users/register', { username, firstName, lastName, email, password, repeatPassword, preferredLanguage }),
-        authenticate: (login: string, password: string) => apiInstance.post('/api/users/login', { login, password }),
+        candidateRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/candidate/register', candidateRegister),
+        recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister),
+        authenticate: (login: string, password: string) => apiInstance.post('/api/auth/login', { login, password }),
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
     },
     admin: {
-        
+
     }
 };
 

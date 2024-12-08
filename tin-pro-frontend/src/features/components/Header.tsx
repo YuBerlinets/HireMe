@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/style.css";
 import { useEffect, useState } from "react";
-import { isUserAuthenticated } from "../auth/helpers/AuthHelper";
 import { VscAccount } from "react-icons/vsc";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "../../app/store/store";
 
 export default function Header() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -12,11 +12,13 @@ export default function Header() {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
+    const isLoggedIn = useAppSelector((state) => state.auth.isAuthenticated);
+
     useEffect(() => {
-        if (isUserAuthenticated()) {
+        if (isLoggedIn) {
             setIsUserLoggedIn(true);
         }
-    }, []);
+    }, [isLoggedIn]);
 
 
     return (
@@ -26,9 +28,16 @@ export default function Header() {
                     <a>HireMe</a>
                 </h1>
                 <ul>
-                    <li onClick={() => navigate("/")} className="header_item">
-                        <a>{t('header.dashboard')}</a>
-                    </li>
+                    {isUserLoggedIn && (
+                        <>
+                            <li onClick={() => navigate("/jobs")} className="header_item">
+                                <a>{t('header.jobs')}</a>
+                            </li>
+                            <li onClick={() => navigate("/candidates")} className="header_item">
+                                <a>{t('header.candidates')}</a>
+                            </li>
+                        </>
+                    )}
                     {!isUserLoggedIn && (
                         <>
                             <li onClick={() => navigate("/register")} className="header_item">
