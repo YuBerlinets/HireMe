@@ -29,11 +29,20 @@ apiInstance.interceptors.request.use(
 
 const api = {
     user: {
-        getUserInfo: () => apiInstance.get('/api/users/basic-information'),
-        candidateRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/candidate/register',  candidateRegister ),
-        recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister ),
+        getUserInfo: () => apiInstance.get('/api/users/my-information'),
+        candidateRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/candidate/register', candidateRegister),
+        recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister),
         authenticate: (login: string, password: string) => apiInstance.post('/api/auth/login', { login, password }),
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
+        updateCandidateInfo: (data: any) => apiInstance.patch('/api/candidates', data),
+    },
+    candidate: {
+        uploadCV: (data: FormData) => apiInstance.post('/api/candidates/upload-cv', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }),
+        deleteCV: () => apiInstance.delete('/api/candidates/cv'),
     },
     admin: {
 

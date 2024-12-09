@@ -1,6 +1,7 @@
 {
     "buttons": {
-        "submit": "Submit"
+        "submit": "Submit",
+        "save": "Save"
     },
     "footer": {
         "language": "Language",
@@ -59,5 +60,21 @@
             "lastName": "Doe",
             "password": "At least 8 characters length"
         }
+    },
+    "account": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "position": "Position",
+        "years": "Years of experience",
+        "salary": "Desired Salary",
+        "skills": "Skills",
+        "cv": "CV",
+        "about": "About Me",
+        "success": "Account updated successfully",
+        "error": "An error occurred while updating the account",
+        "skillsExplanation": "*Please enter your skills separated by commas",
+        "draggerText": "Click or drag your cv to this area to upload",
+        "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf"
     }
 }

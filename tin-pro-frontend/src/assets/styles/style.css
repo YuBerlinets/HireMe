@@ -418,6 +418,199 @@ footer {
     background-color: #31304D;
 }
 
+.account_field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.user_acc {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.candidate_fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+.personal_infromation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.candidate_field {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.candidate_field input {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.acc_slider {
+    width: 100%;
+}
+
+.sliders_section {
+    display: flex;
+    margin: 10px 0;
+    width: 100%;
+    gap: 10px;
+
+    .ant-slider-track {
+        background-color: #161A30 !important;
+    }
+
+    .ant-slider-handle::after {
+        box-shadow: 0 0 0 2px #161A30 !important;
+        outline: 6px solid rgba(49, 48, 77, 0.2);
+    }
+
+    .ant-slider-handle:focus::after {
+        outline: 6px solid rgba(22, 26, 48, 0.2);
+    }
+
+    .ant-slider-handle:hover::after {
+        outline: 6px solid rgba(22, 26, 48, 0.2);
+    }
+
+
+}
+
+.ant-tooltip-inner {
+    background-color: #161A30 !important;
+    color: #fff;
+}
+
+.candidate_acc_info {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.account_icon {
+    border-radius: 50%;
+    width: 170px;
+    height: 170px;
+    margin: 5px auto
+}
+
+.user_acc_card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #161A30;
+    border-radius: 10px;
+}
+
+.user_acc_card span {
+    font-size: 20px;
+}
+
+.user_acc_card_name {
+    font-size: 22px !important;
+    font-weight: 600;
+}
+
+
+.save_acc_button {
+    width: 180px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.skills_section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 20px 0 10px 0;
+    gap: 10px;
+}
+
+.skills_section_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills_section_text {
+    font-size: 22px;
+    border-bottom: 1px solid #161A30;
+}
+
+.skills_explanation {
+    font-size: 14px;
+    color: #8a8a8a;
+
+}
+
+.candidate_cv_title {
+    display: flex;
+    width: 100%;
+    font-size: 24px;
+    margin: 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(22, 26, 48, 0.4);
+}
+
+.candidate_cv_card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px dashed #161A30;
+    border-radius: 10px;
+}
+
+.candidate_cv_card:hover {
+    border: 1px solid #161A30;
+    transition: all 0.4s ease-in-out;
+}
+
+.candidate_cv_card span {
+    align-self: center;
+    font-size: 18px;
+}
+
+.cv_delete_button {
+    background-color: red;
+    border: 1px solid red;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    justify-self: flex-end;
+}
+
+.cv_delete_button:hover {
+    background-color: #fff;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.cv_upload_icon {
+    font-size: 40px;
+    color: #161A30;
+    cursor: pointer;
+}
+
+.ant-upload-drag:hover {
+    border: 1px dashed #161A30 !important;
+}
+
 /*
 #272829
 #61677A

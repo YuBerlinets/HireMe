@@ -1,6 +1,3 @@
-
-
-
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../../../app/api/ApiConfig';
 
@@ -26,7 +23,7 @@ const getStoredAuthState = (): Partial<AuthState> => {
     return {
         user: user ? JSON.parse(user) : null,
         token: token || null,
-        isAuthenticated: !!token, 
+        isAuthenticated: !!token,
     };
 };
 
