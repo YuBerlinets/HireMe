@@ -21,3 +21,6 @@ This project is a Candidate Management System, designed to simplify the process 
 - Fully localized with i18next, supporting English and Ukrainian languages.
 
 ![Candidate Account Page](https://github.com/user-attachments/assets/4969ca39-7ebb-4235-b6c9-4d4ee352cc8e)
+![Candidates_Page](https://github.com/user-attachments/assets/dbf3d1e3-bcb5-4281-a5b1-debe108250f1)
+
+*Consider changing values in the .env file for the proper work
