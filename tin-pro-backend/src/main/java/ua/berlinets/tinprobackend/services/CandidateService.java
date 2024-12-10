@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ua.berlinets.tinprobackend.dto.candidate.CandidatesPaginationDTO;
 import ua.berlinets.tinprobackend.dto.candidate.LimitedCandidateResponseDTO;
 import ua.berlinets.tinprobackend.dto.candidate.ListCandidateResponseDTO;
 import ua.berlinets.tinprobackend.dto.candidate.UpdateCandidateDTO;
@@ -67,10 +68,10 @@ public class CandidateService {
         candidateRepository.save(candidate);
     }
 
-    public List<ListCandidateResponseDTO> getCandidates(Pageable pageable) {
-        Page<Candidate> candidates = candidateRepository.findAll(pageable);
+    public CandidatesPaginationDTO getCandidates(Pageable pageable) {
+        Page<Candidate> candidatesPage = candidateRepository.findAll(pageable);
 
-        return candidates.stream()
+        List<ListCandidateResponseDTO> candidates = candidatesPage.stream()
                 .map(candidate -> new ListCandidateResponseDTO(
                         candidate.getUser().getFirstName(),
                         candidate.getUser().getLastName(),
@@ -79,7 +80,15 @@ public class CandidateService {
                         candidate.getDesiredSalary()
                 ))
                 .toList();
+
+        return new CandidatesPaginationDTO(
+                candidates,
+                candidatesPage.getNumber(),
+                candidatesPage.getTotalPages(),
+                candidatesPage.getTotalElements()
+        );
     }
+
 
     public Object getCandidateInformation(String email, boolean limited) {
         User user = userRepository.findByEmail(email).orElseThrow();

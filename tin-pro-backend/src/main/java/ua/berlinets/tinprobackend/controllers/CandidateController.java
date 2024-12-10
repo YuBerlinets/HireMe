@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ua.berlinets.tinprobackend.dto.candidate.CandidatesPaginationDTO;
 import ua.berlinets.tinprobackend.dto.candidate.UpdateCandidateDTO;
 import ua.berlinets.tinprobackend.dto.user.CandidateResponseDTO;
 import ua.berlinets.tinprobackend.entities.Candidate;
@@ -59,8 +60,10 @@ public class CandidateController {
 
     @GetMapping
     public ResponseEntity<?> getAllCandidates(@PageableDefault(size = 10) Pageable pageable) {
-        return ResponseEntity.ok(candidateService.getCandidates(pageable));
+        CandidatesPaginationDTO paginationDTO = candidateService.getCandidates(pageable);
+        return ResponseEntity.ok(paginationDTO);
     }
+
 
     @DeleteMapping("/cv")
     public ResponseEntity<?> deleteCv(Authentication authentication) {
