@@ -29,7 +29,6 @@ export const useRegisterForm = (): UseRegisterFormReturn => {
     const [isRecruiter, setIsRecruiter] = useState(false);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
 
     const [registerData, setRegisterData] = useState<RegisterData>({
         firstName: '',

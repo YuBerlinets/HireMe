@@ -36,7 +36,7 @@ const api = {
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
         updateCandidateInfo: (data: any) => apiInstance.patch('/api/candidates', data),
     },
-    
+
     candidate: {
         uploadCV: (data: FormData) => apiInstance.post('/api/candidates/cv', data, {
             headers: {
@@ -44,6 +44,7 @@ const api = {
             }
         }),
         deleteCV: () => apiInstance.delete('/api/candidates/cv'),
+        getCandidates: (page: number, size: number) => apiInstance.get('/api/candidates', { params: { page, size } }),
     },
     admin: {
 

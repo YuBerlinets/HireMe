@@ -158,6 +158,23 @@ footer {
     gap: 10px;
 }
 
+.candidates_pagination {
+
+    .ant-pagination-item-active {
+        border-color: #161A30;
+    }
+
+    .ant-pagination-item-active:hover {
+        border-color: #31304d;
+    }
+
+    .ant-pagination-item-active a,
+    .ant-pagination-item-active:hover a {
+        color: #161A30;
+
+    }
+}
+
 .candidates_list {
     display: flex;
     flex-direction: column;

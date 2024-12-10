@@ -4,97 +4,60 @@ import { useTranslation } from "react-i18next";
 
 import "../../assets/styles/style.css";
 import CandidateItem from "./components/CandidateItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Pagination } from "antd";
+import { api } from "../../app/api/ApiConfig";
+
+interface CandidatesPagination {
+    candidates: CandidateItem[];
+    currentPage: number;
+    totalPages: number;
+    totalElements: number;
+}
+
+interface CandidateItem {
+    id: number;
+    firstName: string;
+    lastName: string;
+    yearsOfExperience: number;
+    desiredPosition: string;
+    desiredSalary: string;
+}
 
 export default function Candidates() {
-
+    const [candidates, setCandidates] = useState<CandidatesPagination | null>(null);
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
-    const candidates = [
-        {
-            id: 1,
-            firstName: "John",
-            lastName: "Doe",
-            yearsOfExperience: 3,
-            desiredPosition: "Frontend Developer",
-            desiredSalary: "1000$ - 2000$"
-        },
-        {
-            id: 2,
-            firstName: "Jane",
-            lastName: "Doe",
-            yearsOfExperience: 5,
-            desiredPosition: "Backend Developer",
-            desiredSalary: "2000$"
-        },
-        {
-            id: 3,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 4,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 5,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 6,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 7,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 8,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 9,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        }, {
-            id: 10,
-            firstName: "John",
-            lastName: "Smith",
-            yearsOfExperience: 7,
-            desiredPosition: "Fullstack Developer",
-            desiredSalary: "2000$"
-        },
-    ];
+    const fetchCandidates = async (page = 1, size = 10) => {
+        try {
+            const response = await api.candidate.getCandidates(page - 1, size);
+            const data = response.data;
+            setCandidates(data);
+        } catch (error) {
+            console.error("Error fetching candidates", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCandidates(currentPage, pageSize);
+    }, [currentPage]);
+
     const [filters, setFilters] = useState({
         byExperience: false,
         byPosition: false,
-        bySalary: false
+        bySalary: false,
     });
 
     const handleFilter = (filter: keyof typeof filters) => {
         setFilters({ ...filters, [filter]: !filters[filter] });
-    }
+    };
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     return (
         <>
@@ -102,7 +65,6 @@ export default function Candidates() {
                 <h1>{t('mainPage.title')}</h1>
                 <p>{t('mainPage.description')}</p>
                 <div className="candidates_actions">
-
                     <div className="candidates_filters">
                         <span>{t('mainPage.filters.title')}</span>
                         <button
@@ -113,30 +75,28 @@ export default function Candidates() {
                         </button>
                         <button
                             className={`action_button filter ${filters.byPosition ? 'active' : ''}`}
-
                             onClick={() => handleFilter('byPosition')}
                         >
                             {t('mainPage.filters.byPosition')}
                         </button>
                         <button
                             className={`action_button filter ${filters.bySalary ? 'active' : ''}`}
-
                             onClick={() => handleFilter('bySalary')}
                         >
                             {t('mainPage.filters.bySalary')}
                         </button>
                     </div>
                     <div className="candidates_pagination">
-                        <button className="pagination_button">
-                            {t('mainPage.pagination.previous')}
-                        </button>
-                        <button className="pagination_button">
-                            {t('mainPage.pagination.next')}
-                        </button>
+                        <Pagination
+                            current={currentPage}
+                            pageSize={pageSize}
+                            total={candidates?.totalElements || 0}
+                            onChange={handlePageChange}
+                        />
                     </div>
                 </div>
                 <div className="candidates_list">
-                    {candidates.map(candidate => (
+                    {candidates?.candidates.map((candidate) => (
                         <CandidateItem
                             key={candidate.id}
                             firstName={candidate.firstName}
@@ -150,7 +110,6 @@ export default function Candidates() {
                 </div>
             </div>
             <Footer />
-
         </>
-    )
+    );
 }

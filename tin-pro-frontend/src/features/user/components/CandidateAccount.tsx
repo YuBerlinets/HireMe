@@ -1,4 +1,4 @@
-import { Input, Button, Slider, message } from "antd";
+import { Input,  Slider, message } from "antd";
 import { Candidate } from "../models/UserModels";
 import { useState } from "react";
 import { api } from "../../../app/api/ApiConfig";

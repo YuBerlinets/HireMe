@@ -24,7 +24,7 @@ export default function CandidatePage() {
         desiredPosition: "Senior Software Engineer",
         desiredSalary: 120000,
         skills: "JavaScript, TypeScript, React, Node.js, Java, Spring Boot, SQL, AWS, Node.js, Java, Spring Boot, SQL, Spring Boot, SQL, AWS, Node.js, Java, Spring Boot, AWS",
-        cv: new Blob(["Sample CV content"], { type: "application/pdf" }), // Mock Blob for testing
+        cv: new Blob(["Sample CV content"], { type: "application/pdf" }),
     });
     const [isUserRecruiter, setUserRecruiter] = useState(false);
 
