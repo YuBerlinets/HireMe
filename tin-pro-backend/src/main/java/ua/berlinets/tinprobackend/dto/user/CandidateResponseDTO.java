@@ -10,6 +10,7 @@ public class CandidateResponseDTO {
     private String email;
     private String aboutMe;
     private int yearsOfExperience;
+    private double desiredSalary;
     private String desiredPosition;
     private String skills;
     private byte[] cv;

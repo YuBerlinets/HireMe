@@ -43,14 +43,14 @@ public class CandidateController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/upload-cv", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "/cv", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadCv(@RequestParam("file") MultipartFile file, Authentication authentication) {
         User user = checkAuthentication(authentication);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         try {
-            candidateService.uploadCv(user, file.getBytes());
+            candidateService.uploadCv(user, file);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Failed to upload file");
         }
@@ -59,8 +59,17 @@ public class CandidateController {
 
     @GetMapping
     public ResponseEntity<?> getAllCandidates(@PageableDefault(size = 10) Pageable pageable) {
-
         return ResponseEntity.ok(candidateService.getCandidates(pageable));
+    }
+
+    @DeleteMapping("/cv")
+    public ResponseEntity<?> deleteCv(Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        candidateService.deleteCv(user);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{email}")

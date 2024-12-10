@@ -20,10 +20,16 @@ public class Candidate {
     private String desiredPosition;
 
     @Column
+    private String desiredSalary;
+
+    @Column
     private String skills;
 
     @Column
     private String aboutMe;
+
+    @Column
+    private String cvName;
 
     @Lob
     private byte[] cv;

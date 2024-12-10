@@ -12,5 +12,6 @@ public class UpdateCandidateDTO extends UpdateUserDTO {
     private String skills;
     private int yearsOfExperience;
     private String desiredPosition;
+    private String desiredSalary;
     private String aboutMe;
 }

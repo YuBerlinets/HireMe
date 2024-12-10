@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ua.berlinets.tinprobackend.dto.candidate.LimitedCandidateResponseDTO;
 import ua.berlinets.tinprobackend.dto.candidate.ListCandidateResponseDTO;
 import ua.berlinets.tinprobackend.dto.candidate.UpdateCandidateDTO;
@@ -14,6 +15,7 @@ import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.repositories.CandidateRepository;
 import ua.berlinets.tinprobackend.repositories.UserRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -45,6 +47,10 @@ public class CandidateService {
         if (updateCandidateDTO.getSkills() != null) {
             candidate.setSkills(updateCandidateDTO.getSkills());
         }
+        if (updateCandidateDTO.getDesiredSalary() != null) {
+            candidate.setDesiredSalary(updateCandidateDTO.getDesiredSalary());
+        }
+
         if (updateCandidateDTO.getDesiredPosition() != null) {
             candidate.setDesiredPosition(updateCandidateDTO.getDesiredPosition());
         }
@@ -54,9 +60,10 @@ public class CandidateService {
 
     }
 
-    public void uploadCv(User user, byte[] file) {
+    public void uploadCv(User user, MultipartFile file) throws IOException {
         Candidate candidate = user.getCandidate();
-        candidate.setCv(file);
+        candidate.setCvName(file.getOriginalFilename());
+        candidate.setCv(file.getBytes());
         candidateRepository.save(candidate);
     }
 
@@ -68,7 +75,8 @@ public class CandidateService {
                         candidate.getUser().getFirstName(),
                         candidate.getUser().getLastName(),
                         candidate.getYearsOfExperience(),
-                        candidate.getDesiredPosition()
+                        candidate.getDesiredPosition(),
+                        candidate.getDesiredSalary()
                 ))
                 .toList();
     }
@@ -88,5 +96,11 @@ public class CandidateService {
             candidateResponseDTO.setEmail(user.getEmail());
             return candidateResponseDTO;
         }
+    }
+
+    public void deleteCv(User user) {
+        Candidate candidate = user.getCandidate();
+        candidate.setCv(null);
+        candidateRepository.save(candidate);
     }
 }

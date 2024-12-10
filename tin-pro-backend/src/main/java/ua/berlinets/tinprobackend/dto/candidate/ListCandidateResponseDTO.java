@@ -10,4 +10,5 @@ public class ListCandidateResponseDTO {
     private String lastName;
     private int yearsOfExperience;
     private String desiredPosition;
+    private String desiredSalary;
 }
