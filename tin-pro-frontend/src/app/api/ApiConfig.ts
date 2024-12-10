@@ -45,6 +45,11 @@ const api = {
         }),
         deleteCV: () => apiInstance.delete('/api/candidates/cv'),
         getCandidates: (page: number, size: number) => apiInstance.get('/api/candidates', { params: { page, size } }),
+        getCandidateInformation: (id: string) => apiInstance.get(`/api/candidates/${id}`),
+
+    },
+    job: {
+        getJobs: (page: number, size: number) => apiInstance.get('/api/jobs', { params: { page, size } }),
     },
     admin: {
 

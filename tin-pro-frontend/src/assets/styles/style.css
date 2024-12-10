@@ -381,9 +381,15 @@ footer {
 
 .section_title {
     font-size: 24px;
-    margin: 20px 0;
+    margin: 10px 0;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(22, 26, 48, 0.4);
+}
+
+.experience_text {
+    display: flex;
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 .candidate_info {
@@ -399,16 +405,18 @@ footer {
     margin-bottom: 10px;
 }
 
+.years_timeline {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
 .candidate_desc {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     width: 20%;
-    height: 200px;
-    border-radius: 10px;
-    padding: 10px;
     margin-top: 40px;
-    border: 2px solid #161A30;
+
 }
 
 .candidate_desc:nth-child(1) {
@@ -639,6 +647,127 @@ footer {
     background-color: #fff;
     color: #161A30;
     border: 1px solid #161A30;
+}
+
+.account_main_title {
+    display: flex;
+    align-items: center;
+    font-size: 26px;
+    margin: 20px 0;
+}
+
+.block_title {
+    font-size: 24px;
+    margin: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(22, 26, 48, 0.4);
+}
+
+.recruiter_fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+
+.recruiter_acc_page {
+    display: flex;
+    gap: 20px;
+}
+
+.recruiter_jobs {
+    width: 30%;
+}
+
+.recruiter_jobs_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.recruiter_jobs_list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+}
+
+.recruiter_jobs_list::-webkit-scrollbar-track {
+    background: #F5F5F5;
+    border-radius: 6px;
+}
+
+.recruiter_jobs_list::-webkit-scrollbar-thumb {
+    background: #161A30;
+    border-radius: 6px;
+}
+
+.recruiter_jobs_list::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+.recruiter_job {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 10px;
+    padding: 8px;
+    border: 1px solid #161A30;
+    border-radius: 10px;
+}
+
+
+/* .jobs_page {
+    display: flex;
+
+    flex-direction: column;
+    width: 100%;
+} */
+
+.jobs_list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job_item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid #D8D9DA;
+    border-radius: 10px;
+    font-size: 18px;
+    gap: 10px;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.job_item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+}
+
+.job_title {
+    font-size: 22px;
+    grid-column: span 2;
+}
+
+.job_company {
+    font-size: 20px;
+}
+
+.job_date {
+    color: #4B5945;
+}
+
+.jobs_actions {
+    margin: 10px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.jobs_filter {
+    margin: 10px 0;
 }
 
 /*

@@ -63,10 +63,15 @@
         }
     },
     "account": {
+        "candidate": "Candidate",
+        "recruiter": "Recruiter",
         "firstName": "First Name",
         "lastName": "Last Name",
         "email": "Email",
         "position": "Position",
+        "company": "Company",
+        "recruiterPosition": "Position",
+        "personalInformation": "Personal Information",
         "years": "Years of experience",
         "salary": "Desired Salary",
         "skills": "Skills",
@@ -76,6 +81,15 @@
         "error": "An error occurred while updating the account",
         "skillsExplanation": "*Please enter your skills separated by commas",
         "draggerText": "Click or drag your cv to this area to upload",
-        "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf"
+        "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf",
+        "recruiterJobs": "Posted Jobs"
+    },
+    "jobs": {
+        "title": "Available Jobs",
+        "description": "Explore and apply to the latest job opportunities.",
+        "search": "Search for jobs...",
+        "all": "All",
+        "open": "Open",
+        "closed": "Closed"
     }
 }

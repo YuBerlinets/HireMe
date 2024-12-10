@@ -1,9 +1,10 @@
-import { Input,  Slider, message } from "antd";
-import { Candidate } from "../models/UserModels";
+import { Input, Slider, message } from "antd";
+import { Candidate } from "./models/UserModels";
 import { useState } from "react";
-import { api } from "../../../app/api/ApiConfig";
+import { api } from "../../app/api/ApiConfig";
 import { useTranslation } from "react-i18next";
-import CandidateCV from "./CandidateCV";
+import CandidateCV from "./components/CandidateCV";
+import CandidateCard from "./components/CandidateCard";
 
 interface CandidateAccountProps {
     data: Candidate;
@@ -186,13 +187,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                     </button>
                 </div>
                 <div className="candidate_acc_info">
-                    <div className="user_acc_card">
-                        <img src="https://via.placeholder.com/170" alt="account_icon" className="account_icon" />
-                        <span className="user_acc_card_name">{data.firstName} {data.lastName}</span>
-                        <span>{data.desiredSalary}$</span>
-                        <span>{data.desiredPosition}</span>
-                        <span>{data.yearsOfExperience} years of experience</span>
-                    </div>
+                    <CandidateCard data={data} />
                     <CandidateCV cvName={data.cvName} cv={data.cv} />
                 </div>
             </div>

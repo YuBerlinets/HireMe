@@ -7,6 +7,7 @@ import RegisterPage from "../../features/auth/RegisterPage";
 import CandidatePage from "../../features/candidate/CandidatePage";
 import AccountPage from "../../features/user/AccountPage";
 import Candidates from "../../features/candidate/Candidates";
+import JobsPage from "../../features/job/JobsPage";
 
 // const token = localStorage.getItem('token');
 
@@ -29,14 +30,14 @@ const router = createBrowserRouter([
             },
             {
                 path: '/jobs',
-                element: <div>Jobs</div>,
+                element: <JobsPage />,
             },
             {
                 path: "/candidates",
                 element: <Candidates />
             },
             {
-                path: '/candidates/:id',
+                path: '/candidates/:candidateId',
                 element: <CandidatePage />,
             },
             {

@@ -18,6 +18,15 @@ export interface Candidate extends User {
 export interface Recruiter extends User {
     company: string;
     position: string;
+    jobs: PostedJob[];
+}
+
+export interface PostedJob {
+    id: number;
+    title: string;
+    location: string;
+    date: string;
+    status: string;
 }
 
 export type UserData = Candidate | Recruiter;
