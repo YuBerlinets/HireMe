@@ -193,7 +193,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                         <span>{data.desiredPosition}</span>
                         <span>{data.yearsOfExperience} years of experience</span>
                     </div>
-                    <CandidateCV cvName="test.pdf" cv={data.cv} />
+                    <CandidateCV cvName={data.cvName} cv={data.cv} />
                 </div>
             </div>
         </>

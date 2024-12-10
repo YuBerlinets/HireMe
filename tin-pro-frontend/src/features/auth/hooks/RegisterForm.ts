@@ -73,8 +73,8 @@ export const useRegisterForm = (): UseRegisterFormReturn => {
             return;
         }
 
-        console.log(registerData);
-        console.log(isRecruiter);
+        // console.log(registerData);
+        // console.log(isRecruiter);
         try {
             const response = isRecruiter ? await api.user.recruiterRegister(
                 registerData

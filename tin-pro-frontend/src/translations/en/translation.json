@@ -1,7 +1,8 @@
 {
     "buttons": {
         "submit": "Submit",
-        "save": "Save"
+        "save": "Save",
+        "download": "Download"
     },
     "footer": {
         "language": "Language",

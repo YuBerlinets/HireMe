@@ -8,7 +8,7 @@ export default function AccountPage() {
     const [userData, setUserData] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
+    
     useEffect(() => {
 
         const fetchUserData = async (): Promise<UserData> => {

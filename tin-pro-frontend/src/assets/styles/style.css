@@ -611,6 +611,19 @@ footer {
     border: 1px dashed #161A30 !important;
 }
 
+.cv_download_button {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid #161A30;
+}
+
+.cv_download_button:hover {
+    background-color: #fff;
+    color: #161A30;
+    border: 1px solid #161A30;
+}
+
 /*
 #272829
 #61677A

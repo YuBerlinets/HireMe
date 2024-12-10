@@ -11,6 +11,7 @@ export interface Candidate extends User {
     desiredPosition: string;
     desiredSalary: string;
     skills: string;
+    cvName: string;
     cv: Blob | null;
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { message, Upload, UploadProps } from "antd";
+import { message, UploadProps } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import { useTranslation } from "react-i18next";
 import { api } from "../../../app/api/ApiConfig";
@@ -24,27 +24,22 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
 
         async customRequest({ file, onSuccess, onError }) {
             try {
-                const uploadFile = file as any;
-                const originFileObj = uploadFile.originFileObj as File;
 
-                if (!originFileObj) {
-                    message.error("Invalid file.");
-                    return;
-                }
+                const uploadFile = file as File;
 
-                if (originFileObj.size / 1024 / 1024 > MAX_FILE_SIZE_MB) {
-                    message.error(`${originFileObj.name} is larger than 5 MB.`);
+                if (uploadFile.size / 1024 / 1024 > MAX_FILE_SIZE_MB) {
+                    message.error(`${uploadFile.name} is larger than 5 MB.`);
                     return;
                 }
 
                 const formData = new FormData();
-                formData.append("file", originFileObj);
+                formData.append("file", uploadFile);
 
                 const response = await api.candidate.uploadCV(formData);
                 if (response.status === 200) {
-                    message.success(`${originFileObj.name} uploaded successfully.`);
-                    setCv(originFileObj);
-                    setCvFileName(originFileObj.name);
+                    message.success(`${uploadFile.name} uploaded successfully.`);
+                    setCv(uploadFile);
+                    setCvFileName(uploadFile.name);
                     onSuccess?.(response.data, file);
                 }
             } catch (error) {
@@ -55,13 +50,10 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
         },
 
         onDrop(e) {
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                const request: any = { file, onSuccess: () => { }, onError: () => { } };
-                props.customRequest?.(request);
-            }
+            console.log("Dropped files", e.dataTransfer.files);
         },
     };
+
 
     const handleCVDelete = async () => {
         try {
@@ -73,9 +65,9 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
             }
         } catch (error) {
             message.error("CV deletion failed.");
-            console.error("CV deletion error:", error);
+            // console.error("CV deletion error:", error);
         }
-    }
+    };
 
     return (
         <div className="candidate_cv">
@@ -87,17 +79,15 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
                     <FaTrashAlt onClick={handleCVDelete} className="cv_delete_button" />
 
                     <a className="action_button cv_download_button" href={URL.createObjectURL(cv)} download>
-                        {t("account.download")}
+                        {t("buttons.download")}
                     </a>
                 </div>
             ) : (
                 <Dragger {...props}>
-                    <FaFileAlt className="cv_upload_icon"/>
+                    <FaFileAlt className="cv_upload_icon" />
 
                     <p className="cv_upload_text">{t("account.draggerText")}</p>
-                    <p className="cv_upload_hint">
-                        {t("account.draggerHint")}
-                    </p>
+                    <p className="cv_upload_hint">{t("account.draggerHint")}</p>
                 </Dragger>
             )}
         </div>
