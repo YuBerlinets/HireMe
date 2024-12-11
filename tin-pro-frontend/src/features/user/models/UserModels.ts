@@ -25,6 +25,7 @@ export interface PostedJob {
     id: number;
     title: string;
     location: string;
+    company: string;
     date: string;
     status: string;
 }

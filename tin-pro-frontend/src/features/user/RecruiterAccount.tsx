@@ -37,44 +37,6 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
         }));
     };
 
-    const jobs: PostedJob[] = [
-        {
-            id: 1,
-            title: "Frontend Developer",
-            location: "Remote",
-            date: "2 days ago",
-            status: "Active",
-        },
-        {
-            id: 2,
-            title: "Backend Developer",
-            location: "Remote",
-            date: "3 days ago",
-            status: "Active",
-        },
-        {
-            id: 3,
-
-            title: "Fullstack Developer",
-            location: "Remote",
-            date: "4 days ago",
-            status: "Active",
-        },
-        {
-            id: 4,
-            title: "Backend Developer",
-            location: "Remote",
-            date: "3 days ago",
-            status: "Active",
-        },
-        {
-            id: 5,
-            title: "Fullstack Developer",
-            location: "Remote",
-            date: "4 days ago",
-            status: "Active",
-        },
-    ];
 
     return (
         <div className="recruiter_acc_page">
@@ -126,7 +88,7 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
             <div className="recruiter_jobs">
                 <h2 className="block_title">{t('account.recruiterJobs')}</h2>
                 <RecruiterPostedJobs
-                    jobs={jobs}
+                    jobs={data.jobs}
                 />
             </div>
         </div>

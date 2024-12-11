@@ -50,7 +50,7 @@ const api = {
         authenticate: (login: string, password: string) => apiInstance.post('/api/auth/login', { login, password }),
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
     },
-    
+
     candidate: {
         uploadCV: (data: FormData) => apiInstance.post('/api/candidates/cv', data, {
             headers: {
@@ -66,6 +66,7 @@ const api = {
     job: {
         getJobs: (page: number, size: number) => apiInstance.get('/api/jobs', { params: { page, size } }),
         getJobById: (id: string) => apiInstance.get(`/api/jobs/${id}`),
+        getJobCreatedByRecruiter: (recruiterId: number) => apiInstance.get(`/api/jobs/by-recruiter/${recruiterId}`),
     },
     admin: {
 

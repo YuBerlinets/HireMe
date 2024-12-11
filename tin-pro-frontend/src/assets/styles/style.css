@@ -710,9 +710,10 @@ footer {
 }
 
 .recruiter_job {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 5px 10px;
+    gap: 2px;
     padding: 8px;
     border: 1px solid #161A30;
     border-radius: 10px;
@@ -768,6 +769,38 @@ footer {
         width: 100% !important;
         height: 50px !important;
     }
+}
+
+.recruiter__job-title,
+.recruiter__job-location,
+.recruiter__job-company,
+.recruiter__job-date,
+.recruiter__job-status {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.recruiter__job-title {
+    font-size: 18px;
+}
+
+.recruiter__job-company {
+    font-size: 16px;
+}
+
+.recruiter__job-date {
+    color: #4B5945;
+    grid-column: span 2;
+}
+
+.no_jobs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 100vh;
+
+    color: #161A30;
 }
 
 /*
