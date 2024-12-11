@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.berlinets.tinprobackend.dto.job.JobRequestDTO;
 import ua.berlinets.tinprobackend.dto.job.JobResponseDTO;
+import ua.berlinets.tinprobackend.entities.Recruiter;
 import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.enums.RoleEnum;
 import ua.berlinets.tinprobackend.services.JobService;
@@ -60,6 +61,23 @@ public class JobController {
         if (response == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(response);
+    }
 
+    @GetMapping("/by-recruiter/{recruiterId}")
+    public ResponseEntity<?> getJobsByRecruiter(@PathVariable Long recruiterId, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (recruiterId == null)
+            return ResponseEntity.badRequest().build();
+        try {
+            Recruiter recruiter = userService.getUserById(recruiterId).orElseThrow(
+                    () -> new RuntimeException("Recruiter not found")
+            ).getRecruiter();
+
+            return ResponseEntity.ok(jobService.getJobsByRecruiter(recruiter));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

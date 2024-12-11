@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.berlinets.tinprobackend.entities.User;
+import ua.berlinets.tinprobackend.services.JobService;
 import ua.berlinets.tinprobackend.services.UserService;
 
 @RestController
@@ -18,7 +19,7 @@ import ua.berlinets.tinprobackend.services.UserService;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
-
+    private final JobService jobService;
     private User checkAuthentication(Authentication authentication) {
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
             return userService.getUserByEmail(userDetails.getUsername()).orElse(null);
@@ -31,6 +32,7 @@ public class UserController {
         User user = checkAuthentication(authentication);
         if (user == null)
             return ResponseEntity.status(401).build();
+
         return ResponseEntity.ok(userService.getUserInformation(user));
     }
 

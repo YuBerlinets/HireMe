@@ -15,6 +15,6 @@ public class JobResponseDTO {
     private String description;
     private String location;
     private String status;
-    private Instant date;
+    private String date;
     private String company;
 }

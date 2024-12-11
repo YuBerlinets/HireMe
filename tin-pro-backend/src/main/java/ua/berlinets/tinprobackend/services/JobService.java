@@ -10,10 +10,14 @@ import ua.berlinets.tinprobackend.dto.job.JobPaginationDTO;
 import ua.berlinets.tinprobackend.dto.job.JobRequestDTO;
 import ua.berlinets.tinprobackend.dto.job.JobResponseDTO;
 import ua.berlinets.tinprobackend.entities.Job;
+import ua.berlinets.tinprobackend.entities.Recruiter;
 import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.repositories.JobRepository;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 public class JobService {
     private final JobRepository jobRepository;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
     public JobResponseDTO getJobById(Long id) {
@@ -30,7 +35,7 @@ public class JobService {
         JobResponseDTO jobResponseDTO = modelMapper.map(job, JobResponseDTO.class);
 
         jobResponseDTO.setCompany(job.getRecruiter().getCompany());
-
+        jobResponseDTO.setDate(getFormattedDate(job.getDatePosted()));
         return jobResponseDTO;
     }
 
@@ -41,6 +46,7 @@ public class JobService {
                     JobListResponseDTO jobListResponseDTO = new JobListResponseDTO();
                     modelMapper.map(job, jobListResponseDTO);
                     jobListResponseDTO.setCompany(job.getRecruiter().getCompany());
+                    jobListResponseDTO.setDate(getFormattedDate(job.getDatePosted()));
                     return jobListResponseDTO;
                 }
         ).toList();
@@ -65,5 +71,23 @@ public class JobService {
         job.setDatePosted(Instant.now());
 
         jobRepository.save(job);
+    }
+
+    public List<JobResponseDTO> getJobsByRecruiter(Recruiter recruiter) {
+        List<Job> jobs = jobRepository.findAllByRecruiter(recruiter);
+        return jobs.stream().map(job -> {
+                    JobResponseDTO jobResponseDTO = new JobResponseDTO();
+                    modelMapper.map(job, jobResponseDTO);
+                    jobResponseDTO.setCompany(job.getRecruiter().getCompany());
+                    jobResponseDTO.setDate(getFormattedDate(job.getDatePosted()));
+                    return jobResponseDTO;
+                }
+        ).toList();
+    }
+
+    private String getFormattedDate(Instant date) {
+        ZonedDateTime zonedDateTime = date.atZone(ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+        return zonedDateTime.format(formatter);
     }
 }
