@@ -25,7 +25,7 @@ public class Candidate {
     @Column
     private String skills;
 
-    @Column
+    @Column(length = 1000)
     private String aboutMe;
 
     @Column

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LimitedCandidateResponseDTO {
+public class LimitedCandidateResponseDTO implements ICandidateResponseDTO {
     private String firstName;
     private String lastName;
     private String aboutMe;

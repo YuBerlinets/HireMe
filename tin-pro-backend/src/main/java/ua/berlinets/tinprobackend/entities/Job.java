@@ -3,6 +3,7 @@ package ua.berlinets.tinprobackend.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -12,11 +13,20 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column
     private String title;
 
-    @Column(nullable = false)
+    @Column
     private String description;
+
+    @Column
+    private String location;
+
+    @Column
+    private String status;
+
+    @Column
+    private Instant datePosted;
 
     @ManyToOne
     @JoinColumn(name = "recruiter_id", nullable = false)

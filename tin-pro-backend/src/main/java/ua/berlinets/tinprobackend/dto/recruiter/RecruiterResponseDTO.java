@@ -1,4 +1,4 @@
-package ua.berlinets.tinprobackend.dto.user;
+package ua.berlinets.tinprobackend.dto.recruiter;
 
 import lombok.Data;
 

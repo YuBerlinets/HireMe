@@ -6,11 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ua.berlinets.tinprobackend.dto.candidate.CandidatesPaginationDTO;
-import ua.berlinets.tinprobackend.dto.candidate.LimitedCandidateResponseDTO;
-import ua.berlinets.tinprobackend.dto.candidate.ListCandidateResponseDTO;
-import ua.berlinets.tinprobackend.dto.candidate.UpdateCandidateDTO;
-import ua.berlinets.tinprobackend.dto.user.CandidateResponseDTO;
+import ua.berlinets.tinprobackend.dto.candidate.*;
 import ua.berlinets.tinprobackend.entities.Candidate;
 import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.repositories.CandidateRepository;
@@ -73,6 +69,7 @@ public class CandidateService {
 
         List<ListCandidateResponseDTO> candidates = candidatesPage.stream()
                 .map(candidate -> new ListCandidateResponseDTO(
+                        candidate.getId(),
                         candidate.getUser().getFirstName(),
                         candidate.getUser().getLastName(),
                         candidate.getYearsOfExperience(),
@@ -90,26 +87,40 @@ public class CandidateService {
     }
 
 
-    public Object getCandidateInformation(String email, boolean limited) {
+    public ICandidateResponseDTO getCandidateInformationByEmail(String email, boolean limited) {
         User user = userRepository.findByEmail(email).orElseThrow();
         Candidate candidate = user.getCandidate();
-        if (limited) {
-            LimitedCandidateResponseDTO limitedCandidateResponseDTO = modelMapper.map(candidate, LimitedCandidateResponseDTO.class);
-            limitedCandidateResponseDTO.setFirstName(user.getFirstName());
-            limitedCandidateResponseDTO.setLastName(user.getLastName());
-            return limitedCandidateResponseDTO;
-        } else {
-            CandidateResponseDTO candidateResponseDTO = modelMapper.map(candidate, CandidateResponseDTO.class);
-            candidateResponseDTO.setFirstName(user.getFirstName());
-            candidateResponseDTO.setLastName(user.getLastName());
-            candidateResponseDTO.setEmail(user.getEmail());
-            return candidateResponseDTO;
-        }
+        return extractCandidateInformation(!limited, candidate, user);
     }
 
     public void deleteCv(User user) {
         Candidate candidate = user.getCandidate();
         candidate.setCv(null);
         candidateRepository.save(candidate);
+    }
+
+    public ICandidateResponseDTO getCandidateById(long candidateId, boolean isRecruiter) {
+        Candidate candidate = candidateRepository.findById(candidateId).orElse(null);
+        if (candidate == null) {
+            return null;
+        }
+        User user = candidate.getUser();
+        return extractCandidateInformation(isRecruiter, candidate, user);
+    }
+
+    private ICandidateResponseDTO extractCandidateInformation(boolean isRecruiter, Candidate candidate, User user) {
+        if (isRecruiter) {
+            CandidateResponseDTO candidateResponseDTO = modelMapper.map(candidate, CandidateResponseDTO.class);
+            candidateResponseDTO.setFirstName(user.getFirstName());
+            candidateResponseDTO.setLastName(user.getLastName());
+            candidateResponseDTO.setEmail(user.getEmail());
+
+            return candidateResponseDTO;
+        } else {
+            LimitedCandidateResponseDTO limitedCandidateResponseDTO = modelMapper.map(candidate, LimitedCandidateResponseDTO.class);
+            limitedCandidateResponseDTO.setFirstName(user.getFirstName());
+            limitedCandidateResponseDTO.setLastName(user.getLastName());
+            return limitedCandidateResponseDTO;
+        }
     }
 }

@@ -11,9 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ua.berlinets.tinprobackend.dto.candidate.CandidatesPaginationDTO;
+import ua.berlinets.tinprobackend.dto.candidate.ICandidateResponseDTO;
 import ua.berlinets.tinprobackend.dto.candidate.UpdateCandidateDTO;
-import ua.berlinets.tinprobackend.dto.user.CandidateResponseDTO;
-import ua.berlinets.tinprobackend.entities.Candidate;
 import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.services.CandidateService;
 import ua.berlinets.tinprobackend.services.UserService;
@@ -64,6 +63,15 @@ public class CandidateController {
         return ResponseEntity.ok(paginationDTO);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCandidate(@PathVariable String id, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        boolean isRecruiter = user != null && user.getRecruiter() != null;
+
+        ICandidateResponseDTO candidateResponseDTO = candidateService.getCandidateById(Long.parseLong(id), isRecruiter);
+
+        return ResponseEntity.ok(candidateResponseDTO);
+    }
 
     @DeleteMapping("/cv")
     public ResponseEntity<?> deleteCv(Authentication authentication) {
@@ -75,13 +83,13 @@ public class CandidateController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<?> getCandidate(@PathVariable String email, Authentication authentication) {
-        User user = checkAuthentication(authentication);
-        if (user == null) {
-            return ResponseEntity.ok(candidateService.getCandidateInformation(email, true));
-        }
-        return ResponseEntity.ok(candidateService.getCandidateInformation(email, false));
-    }
+//    @GetMapping("/{email}")
+//    public ResponseEntity<?> getCandidateById(@PathVariable String email, Authentication authentication) {
+//        User user = checkAuthentication(authentication);
+//        if (user == null) {
+//            return ResponseEntity.ok(candidateService.getCandidateInformationByEmail(email, true));
+//        }
+//        return ResponseEntity.ok(candidateService.getCandidateInformationByEmail(email, false));
+//    }
 
 }
