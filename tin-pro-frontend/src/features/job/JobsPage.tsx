@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { api } from "../../app/api/ApiConfig";
 import JobListItem from "./components/JobListItem";
 import Footer from "../components/Footer";
-import { Pagination } from "antd";
+import { Pagination, Skeleton } from "antd";
 
 export interface JobItem {
     id: number;
@@ -13,80 +13,41 @@ export interface JobItem {
     date: string;
     status: string;
 }
+interface JobPagination {
+    jobs: JobItem[];
+    currentPage: number;
+    totalPages: number;
+    totalElements: number;
+}
 
 
 export default function JobsPage() {
     const { t } = useTranslation();
-    const [jobs, setJobs] = useState<JobItem[]>([]);
-    const [page, setPage] = useState(1);
-    const size = 10;
+    const [jobsPagination, setJobPagination] = useState<JobPagination | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+    const pageSize = 10;
 
-    const fetchJobs = async (page: number, size: number) => {
+    const fetchJobs = async (page = 1, size = 10) => {
         try {
             const response = await api.job.getJobs(page - 1, size);
             if (response.status === 200) {
                 const data = response.data;
-                setJobs(data);
+                setJobPagination(data);
+                setIsLoading(false);
             }
         } catch (error) {
             console.error("Error fetching jobs", error);
         }
     };
 
-    // useEffect(() => {
-    //     fetchJobs(page, size);
-    // }, [page, size]);
+    useEffect(() => {
+        fetchJobs(currentPage, pageSize);
+    }, [currentPage]);
 
-    const jobsTemplate: JobItem[] = [
-        {
-            id: 1,
-            title: "Frontend Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        },
-        {
-            id: 2,
-            title: "Backend Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        },
-        {
-            id: 3,
-            title: "Fullstack Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        },
-        {
-            id: 4,
-            title: "Frontend Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        },
-        {
-            id: 5,
-            title: "Backend Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        },
-        {
-            id: 6,
-            title: "Fullstack Developer",
-            location: "Remote",
-            company: "Google",
-            date: "2021-09-01",
-            status: "Open"
-        }
-    ]
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     return (
         <>
@@ -105,11 +66,26 @@ export default function JobsPage() {
                             </select>
                         </div>
                         <div className="jobs_pagination">
-                            <Pagination current={page} total={jobs.length} onChange={(page) => setPage(page)} />
+                            <Pagination
+                                current={currentPage}
+                                pageSize={pageSize}
+                                total={jobsPagination?.totalElements || 0}
+                                onChange={handlePageChange}
+                            />
                         </div>
                     </div>
                     <div className="jobs_list">
-                        {jobsTemplate.map((job) => (
+                        {isLoading && !jobsPagination?.jobs && (
+                            Array.from({ length: 10 }).map((_, index) => (
+                                <Skeleton
+                                    key={index}
+                                    paragraph={{ rows: 0 }}
+                                    active
+                                    className="list_skeleton"
+                                />
+                            ))
+                        )}
+                        {jobsPagination?.jobs.map((job) => (
                             <JobListItem job={job} key={job.id} />
                         ))}
                     </div>

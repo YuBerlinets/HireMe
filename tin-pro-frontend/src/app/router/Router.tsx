@@ -8,6 +8,7 @@ import CandidatePage from "../../features/candidate/CandidatePage";
 import AccountPage from "../../features/user/AccountPage";
 import Candidates from "../../features/candidate/Candidates";
 import JobsPage from "../../features/job/JobsPage";
+import JobPage from "../../features/job/JobPage";
 
 // const token = localStorage.getItem('token');
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/jobs',
                 element: <JobsPage />,
+            },
+            {
+                path: '/jobs/:jobId',
+                element: <JobPage />,
             },
             {
                 path: "/candidates",

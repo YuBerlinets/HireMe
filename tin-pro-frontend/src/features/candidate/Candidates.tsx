@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "../../assets/styles/style.css";
 import CandidateItem from "./components/CandidateItem";
 import { useEffect, useState } from "react";
-import { Pagination } from "antd";
+import { Pagination, Skeleton } from "antd";
 import { api } from "../../app/api/ApiConfig";
 
 interface CandidatesPagination {
@@ -29,6 +29,7 @@ export default function Candidates() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
     const pageSize = 10;
 
     const fetchCandidates = async (page = 1, size = 10) => {
@@ -36,6 +37,7 @@ export default function Candidates() {
             const response = await api.candidate.getCandidates(page - 1, size);
             const data = response.data;
             setCandidates(data);
+            setIsLoading(false);
         } catch (error) {
             console.error("Error fetching candidates", error);
         }
@@ -96,7 +98,17 @@ export default function Candidates() {
                     </div>
                 </div>
                 <div className="candidates_list">
-                    {candidates?.candidates.map((candidate) => (
+                    {isLoading && !candidates && (
+                        Array.from({ length: 10 }).map((_, index) => (
+                            <Skeleton
+                                key={index}
+                                paragraph={{ rows: 0 }}
+                                active
+                                className="list_skeleton"
+                            />
+                        ))
+                    )}
+                    {!isLoading && candidates?.candidates.map((candidate) => (
                         <CandidateItem
                             key={candidate.id}
                             firstName={candidate.firstName}

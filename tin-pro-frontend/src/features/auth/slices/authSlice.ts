@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../../../app/api/ApiConfig';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
     email: string;
@@ -85,7 +86,7 @@ const authSlice = createSlice({
             localStorage.removeItem('token');
             localStorage.removeItem('user');
 
-            window.location.reload();
+            window.location.href = '/login';
         },
     },
     extraReducers: (builder) => {
@@ -96,14 +97,12 @@ const authSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 const { user, token } = action.payload;
-
                 state.user = user;
                 state.token = token;
                 state.isAuthenticated = true;
                 state.isLoading = false;
                 state.error = null;
 
-                // Save to localStorage
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
             })

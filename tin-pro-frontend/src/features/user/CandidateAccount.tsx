@@ -45,7 +45,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
 
     const handleSave = async () => {
         try {
-            const response = await api.user.updateCandidateInfo(formData);
+            const response = await api.candidate.updateCandidateInfo(formData);
             if (response.status === 200) {
                 messageApi.open({
                     type: 'success',
