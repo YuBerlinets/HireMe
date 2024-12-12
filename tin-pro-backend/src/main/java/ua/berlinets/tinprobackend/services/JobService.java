@@ -5,30 +5,29 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ua.berlinets.tinprobackend.dto.job.JobListResponseDTO;
-import ua.berlinets.tinprobackend.dto.job.JobPaginationDTO;
-import ua.berlinets.tinprobackend.dto.job.JobRequestDTO;
-import ua.berlinets.tinprobackend.dto.job.JobResponseDTO;
-import ua.berlinets.tinprobackend.entities.Job;
-import ua.berlinets.tinprobackend.entities.Recruiter;
-import ua.berlinets.tinprobackend.entities.User;
+import ua.berlinets.tinprobackend.dto.job.*;
+import ua.berlinets.tinprobackend.entities.*;
+import ua.berlinets.tinprobackend.repositories.JobCandidateRepository;
 import ua.berlinets.tinprobackend.repositories.JobRepository;
 
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class JobService {
     private final JobRepository jobRepository;
-    private final UserService userService;
+    private final JobCandidateRepository jobCandidateRepository;
     private final ModelMapper modelMapper;
 
-    public JobResponseDTO getJobById(Long id) {
+    public Job getJobById(Long id) {
+        return jobRepository.findById(id).orElse(null);
+    }
+
+    public JobResponseDTO getJobResponseById(Long id) {
         Job job = jobRepository.findById(id).orElse(null);
         if (job == null)
             return null;
@@ -69,7 +68,6 @@ public class JobService {
         job.setLocation(jobRequestDTO.getLocation());
         job.setStatus("ACTIVE");
         job.setDatePosted(Instant.now());
-
         jobRepository.save(job);
     }
 
@@ -85,9 +83,34 @@ public class JobService {
         ).toList();
     }
 
+    public List<PostedJobDTO> getPostedJobs(Recruiter recruiter) {
+        List<Job> jobs = jobRepository.findAllByRecruiter(recruiter);
+        return jobs.stream().map(job -> {
+            PostedJobDTO postedJobDTO = new PostedJobDTO();
+            modelMapper.map(job, postedJobDTO);
+            postedJobDTO.setDatePosted(getShortFormattedDate(job.getDatePosted()));
+            return postedJobDTO;
+        }).toList();
+    }
+
     private String getFormattedDate(Instant date) {
         ZonedDateTime zonedDateTime = date.atZone(ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         return zonedDateTime.format(formatter);
+    }
+
+    private String getShortFormattedDate(Instant date) {
+        ZonedDateTime zonedDateTime = date.atZone(ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return zonedDateTime.format(formatter);
+    }
+
+    public void assignCandidate(Job job, Candidate candidate, Recruiter recruiter) {
+        JobCandidate jobCandidate = new JobCandidate();
+        jobCandidate.setJob(job);
+        jobCandidate.setCandidate(candidate);
+        jobCandidate.setRecruiter(recruiter);
+        jobCandidate.setStatus("PENDING");
+        jobCandidateRepository.save(jobCandidate);
     }
 }

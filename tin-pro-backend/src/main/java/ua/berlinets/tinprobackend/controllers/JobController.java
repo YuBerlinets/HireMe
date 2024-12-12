@@ -10,9 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.berlinets.tinprobackend.dto.job.JobRequestDTO;
 import ua.berlinets.tinprobackend.dto.job.JobResponseDTO;
+import ua.berlinets.tinprobackend.entities.Candidate;
+import ua.berlinets.tinprobackend.entities.Job;
 import ua.berlinets.tinprobackend.entities.Recruiter;
 import ua.berlinets.tinprobackend.entities.User;
 import ua.berlinets.tinprobackend.enums.RoleEnum;
+import ua.berlinets.tinprobackend.services.CandidateService;
 import ua.berlinets.tinprobackend.services.JobService;
 import ua.berlinets.tinprobackend.services.UserService;
 
@@ -22,6 +25,7 @@ import ua.berlinets.tinprobackend.services.UserService;
 public class JobController {
     private final JobService jobService;
     private final UserService userService;
+    private final CandidateService candidateService;
 
     private User checkAuthentication(Authentication authentication) {
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
@@ -57,7 +61,7 @@ public class JobController {
         if (id == null)
             return ResponseEntity.badRequest().build();
 
-        JobResponseDTO response = jobService.getJobById(id);
+        JobResponseDTO response = jobService.getJobResponseById(id);
         if (response == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(response);
@@ -74,10 +78,40 @@ public class JobController {
             Recruiter recruiter = userService.getUserById(recruiterId).orElseThrow(
                     () -> new RuntimeException("Recruiter not found")
             ).getRecruiter();
-
             return ResponseEntity.ok(jobService.getJobsByRecruiter(recruiter));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/posted")
+    public ResponseEntity<?> getPostedJobs(Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (user.getRole() != RoleEnum.RECRUITER)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        return ResponseEntity.ok(jobService.getPostedJobs(user.getRecruiter()));
+    }
+
+
+    @PostMapping("/{jobId}/assign-candidate/{candidateId}")
+    public ResponseEntity<?> assignCandidate(@PathVariable Long jobId, @PathVariable Long candidateId, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (user.getRole() != RoleEnum.RECRUITER)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (jobId == null || candidateId == null)
+            return ResponseEntity.badRequest().build();
+        Candidate candidate = candidateService.getCandidateById(candidateId);
+        Job job = jobService.getJobById(jobId);
+        if (job == null || candidate == null)
+            return ResponseEntity.notFound().build();
+        if (job.getRecruiter().getId() != user.getRecruiter().getId())
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        jobService.assignCandidate(job, candidate, user.getRecruiter());
+        return ResponseEntity.ok().build();
     }
 }

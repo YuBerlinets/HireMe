@@ -99,7 +99,11 @@ public class CandidateService {
         candidateRepository.save(candidate);
     }
 
-    public ICandidateResponseDTO getCandidateById(long candidateId, boolean isRecruiter) {
+    public Candidate getCandidateById(long candidateId) {
+        return candidateRepository.findById(candidateId).orElse(null);
+    }
+
+    public ICandidateResponseDTO getCandidateResponseById(long candidateId, boolean isRecruiter) {
         Candidate candidate = candidateRepository.findById(candidateId).orElse(null);
         if (candidate == null) {
             return null;

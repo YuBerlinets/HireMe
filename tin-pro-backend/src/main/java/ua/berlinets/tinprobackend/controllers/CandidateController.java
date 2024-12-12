@@ -68,7 +68,7 @@ public class CandidateController {
         User user = checkAuthentication(authentication);
         boolean isRecruiter = user != null && user.getRecruiter() != null;
 
-        ICandidateResponseDTO candidateResponseDTO = candidateService.getCandidateById(Long.parseLong(id), isRecruiter);
+        ICandidateResponseDTO candidateResponseDTO = candidateService.getCandidateResponseById(Long.parseLong(id), isRecruiter);
 
         return ResponseEntity.ok(candidateResponseDTO);
     }
@@ -84,7 +84,7 @@ public class CandidateController {
     }
 
 //    @GetMapping("/{email}")
-//    public ResponseEntity<?> getCandidateById(@PathVariable String email, Authentication authentication) {
+//    public ResponseEntity<?> getCandidateResponseById(@PathVariable String email, Authentication authentication) {
 //        User user = checkAuthentication(authentication);
 //        if (user == null) {
 //            return ResponseEntity.ok(candidateService.getCandidateInformationByEmail(email, true));
