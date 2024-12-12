@@ -48,15 +48,29 @@ export default function JobPage() {
 
     return (
         <div className="container">
-            <h1 className="job_main_title">{job.title}</h1>
-            <div className="job_page">
+            <h1 className="job_main_title">{t('job.job') + " • " + job.title}</h1>
+            <div className="job_page_content">
                 <div className="job_info">
-                    <div className="job_title">{job.company}</div>
-                    <div className="job_description">{job.description}</div>
-                    <div className="job_location">{job.location}</div>
-                    <div className="job_status">{job.status}</div>
-                    <div className="job_date">{job.date}</div>
-                    <div className="job_company">{job.company}</div>
+                    <div className="job_field">
+                        <span className="job_field_label">{t("job.company")}: </span>
+                        <span className="job_field_value">{job.company}</span>
+                    </div>
+                    <div className="job_field">
+                        <span className="job_field_label">{t("job.description")}: </span>
+                        <span className="job_field_value">{job.description}</span>
+                    </div>
+                    <div className="job_field">
+                        <span className="job_field_label">{t("job.location")}: </span>
+                        <span className="job_field_value">{job.location}</span>
+                    </div>
+                    <div className="job_field">
+                        <span className="job_field_label">{t("job.status")}: </span>
+                        <span className="job_field_value">{job.status}</span>
+                    </div>
+                    <div className="job_field">
+                        <span className="job_field_label">{t("job.date")}: </span>
+                        <span className="job_field_value">{job.date}</span>
+                    </div>
                 </div>
             </div>
         </div>

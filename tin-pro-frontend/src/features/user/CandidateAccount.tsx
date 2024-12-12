@@ -88,9 +88,9 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
         <>
             {contextHolder}
             <div className="user_acc">
-                <div className="candidate_fields">
+                <div className="account_fields">
                     <div className="personal_infromation">
-                        <div className="candidate_field">
+                        <div className="account_field">
                             <span>{t('account.firstName')}</span>
                             <Input
                                 value={formData.firstName}
@@ -98,7 +98,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                                 placeholder="First Name"
                             />
                         </div>
-                        <div className="candidate_field">
+                        <div className="account_field">
                             <span>{t('account.lastName')}</span>
                             <Input
                                 value={formData.lastName}
@@ -107,7 +107,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                             />
                         </div>
 
-                        <div className="candidate_field">
+                        <div className="account_field">
                             <span>{t('account.position')}</span>
                             <Input
                                 value={formData.desiredPosition}
@@ -115,7 +115,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                                 placeholder="Desired Position"
                             />
                         </div>
-                        <div className="candidate_field">
+                        <div className="account_field">
                             <span>{t('account.email')}</span>
                             <Input value={formData.email} disabled />
                         </div>
@@ -125,7 +125,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
 
                     <div className="sliders_section">
 
-                        <div className="candidate_field acc_slider">
+                        <div className="account_field acc_slider">
                             <span>{t('account.years')}</span>
                             <Slider
                                 min={0}
@@ -137,7 +137,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                             />
                         </div>
 
-                        <div className="candidate_field acc_slider">
+                        <div className="account_field acc_slider">
                             <span>{t('account.salary')}</span>
                             <Slider
                                 range

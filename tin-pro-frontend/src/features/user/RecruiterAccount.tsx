@@ -43,7 +43,7 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
             <div className="recruiter_fields">
                 <h2 className="block_title">{t('account.personalInformation')}</h2>
                 <div className="personal_information">
-                    <div className="candidate_field">
+                    <div className="account_field">
                         <span>{t('account.firstName')}</span>
                         <Input
                             value={formData.firstName}
@@ -51,7 +51,7 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
                             placeholder={t('account.firstName')}
                         />
                     </div>
-                    <div className="candidate_field">
+                    <div className="account_field">
                         <span>{t('account.lastName')}</span>
                         <Input
                             value={formData.lastName}
@@ -60,7 +60,7 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
                         />
                     </div>
 
-                    <div className="candidate_field">
+                    <div className="account_field">
                         <span>{t('account.recruiterPosition')}</span>
                         <Input
                             value={formData.position}
@@ -68,12 +68,12 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
                             placeholder={t('account.recruiterPosition')}
                         />
                     </div>
-                    <div className="candidate_field">
+                    <div className="account_field">
                         <span>{t('account.email')}</span>
                         <Input value={formData.email} disabled />
                     </div>
 
-                    <div className="candidate_field">
+                    <div className="account_field">
                         <span>{t('account.company')}</span>
                         <Input
                             value={formData.company}

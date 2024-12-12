@@ -5,6 +5,8 @@ import CandidateCard from "../user/components/CandidateCard"
 import { Timeline } from "antd"
 import { api } from "../../app/api/ApiConfig"
 import { useParams } from "react-router-dom"
+import AssignCandidateModal from "./components/AssignCandidateModal"
+import Candidates from "./Candidates"
 
 export interface Candidate {
     firstName: string
@@ -14,12 +16,14 @@ export interface Candidate {
     yearsOfExperience: number
     desiredPosition: string
     desiredSalary: string
-    skills: string
+    skills: string,
+    cvName: string,
     cv: Blob | null
 }
 
 export default function CandidatePage() {
     const { candidateId } = useParams<{ candidateId: string }>();
+    const [isAssignCandidateModalVisible, setAssignCandidateModalVisibility] = useState(false);
     const [candidate, setCandidate] = useState<Candidate>({
         firstName: "",
         lastName: "",
@@ -29,6 +33,7 @@ export default function CandidatePage() {
         desiredPosition: "",
         desiredSalary: "",
         skills: "",
+        cvName: "",
         cv: null,
     });
     const [isUserRecruiter, setUserRecruiter] = useState(false);
@@ -59,88 +64,106 @@ export default function CandidatePage() {
         fetchCandidate();
     }, [user]);
 
+    const handleAssignCandidateModalVisibility = () => {
+
+        setAssignCandidateModalVisibility(!isAssignCandidateModalVisible);
+    }
+
+
     return (
-        <div className="container">
+        <>
+            <AssignCandidateModal
+                isOpen={isAssignCandidateModalVisible}
+                candidateId={parseInt(candidateId!)}
+                onClose={handleAssignCandidateModalVisibility}
+            />
+            <div className="container">
 
-            <div className="candidate_page">
-                <div className="candidate_info">
-                    <h1>{candidate.desiredPosition}</h1>
+                <div className="candidate_page">
+                    <div className="candidate_info">
+                        <h1>{candidate.desiredPosition}</h1>
 
-                    <div className="skills">
-                        <p className="section_title">{t('candidate.titles.skills')}</p>
-                        <div className="skills_list">
+                        <div className="skills">
+                            <p className="section_title">{t('candidate.titles.skills')}</p>
+                            <div className="skills_list">
 
-                            {candidate.skills &&
-                                candidate.skills.length > 0 &&
-                                candidate.skills.split(",").map((skill, index) => {
-                                    return (
-                                        <div key={index} className="skill_bar">
-                                            <span className="skill_bar_inner">
-                                                {skill}
-                                            </span>
-                                        </div>
-                                    )
-                                })}
+                                {candidate.skills &&
+                                    candidate.skills.length > 0 &&
+                                    candidate.skills.split(",").map((skill, index) => {
+                                        return (
+                                            <div key={index} className="skill_bar">
+                                                <span className="skill_bar_inner">
+                                                    {skill}
+                                                </span>
+                                            </div>
+                                        )
+                                    })}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="about_me">
-                        <p className="section_title">{t('candidate.titles.aboutMe')}</p>
-                        <p className="about_me_text">
-                            {candidate.aboutMe}
-                        </p>
-                    </div>
+                        <div className="about_me">
+                            <p className="section_title">{t('candidate.titles.aboutMe')}</p>
+                            <p className="about_me_text">
+                                {candidate.aboutMe}
+                            </p>
+                        </div>
 
-                    <div className="experience_years">
-                        <p className="section_title">{t('candidate.titles.years')}</p>
-                        <span className="experience_text">
-                            {t('candidate.list.years', { years: candidate.yearsOfExperience })}
-                        </span>
+                        <div className="experience_years">
+                            <p className="section_title">{t('candidate.titles.years')}</p>
+                            <span className="experience_text">
+                                {t('candidate.list.years', { years: candidate.yearsOfExperience })}
+                            </span>
+                            {isUserRecruiter && (
+                                <Timeline
+                                    pending="More years to come"
+
+                                    items={[
+                                        {
+                                            children: 'Senior Developer 2015-09-01',
+                                            color: '#161A30',
+                                        },
+                                        {
+                                            children: 'Middle Developer 2015-09-01',
+                                            color: '#161A30'
+                                        },
+                                        {
+                                            children: 'Junior Developer 2015-09-01',
+                                            color: '#161A30'
+                                        },
+                                        {
+                                            children: 'Intern 2015-09-01',
+                                            color: '#161A30'
+                                        },
+                                    ]}
+                                    className="years_timeline"
+                                />
+                            )
+                            }
+                        </div>
+
                         {isUserRecruiter && (
-                            <Timeline
-                                pending="More years to come"
-
-                                items={[
-                                    {
-                                        children: 'Senior Developer 2015-09-01',
-                                        color: '#161A30',
-                                    },
-                                    {
-                                        children: 'Middle Developer 2015-09-01',
-                                        color: '#161A30'
-                                    },
-                                    {
-                                        children: 'Junior Developer 2015-09-01',
-                                        color: '#161A30'
-                                    },
-                                    {
-                                        children: 'Intern 2015-09-01',
-                                        color: '#161A30'
-                                    },
-                                ]}
-                                className="years_timeline"
-                            />
-                        )
-                        }
+                            <div className="candidate_cv">
+                                <p className="section_title">{t('candidate.titles.cv')}</p>
+                                {candidate.cv && (
+                                    <a
+                                        href={URL.createObjectURL(candidate.cv)}
+                                        download={`${candidate.cvName}`}
+                                    >
+                                        {t('candidate.download')}
+                                    </a>
+                                )}
+                            </div>
+                        )}
                     </div>
 
-                    {isUserRecruiter && (
-                        <div className="candidate_cv">
-                            <p className="section_title">{t('candidate.titles.cv')}</p>
-                            {candidate.cv && (
-                                <a href={URL.createObjectURL(candidate.cv)} download>
-                                    {t('candidate.download')}
-                                </a>
-                            )}
-                        </div>
-                    )}
-                </div>
-
-                <div className="candidate_desc">
-                    <CandidateCard data={candidate} />
+                    <div className="candidate_desc">
+                        <CandidateCard data={candidate} />
+                        {isUserRecruiter && (
+                            <button className="action_button assign_candidate" onClick={handleAssignCandidateModalVisibility}>{t('candidate.assign')}</button>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </>
     )
 };

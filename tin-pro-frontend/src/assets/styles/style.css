@@ -458,7 +458,7 @@ footer {
     width: 100%;
 }
 
-.candidate_fields {
+.account_fields {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -471,13 +471,13 @@ footer {
     gap: 10px;
 }
 
-.candidate_field {
+.account_field {
     display: flex;
     flex-direction: column;
     font-size: 18px;
 }
 
-.candidate_field input {
+.account_field input {
     padding: 5px;
     border-radius: 5px;
     font-size: 16px;
@@ -799,8 +799,49 @@ footer {
     align-items: center;
     font-size: 24px;
     height: 100vh;
-
     color: #161A30;
+}
+
+.job_page_content {
+    display: flex;
+    width: 100%;
+}
+
+.job_info {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.assign_candidate {
+    margin-top: 20px;
+}
+
+.candidate_modal_button,
+.candidate_modal_close_button {
+    margin: 5px;
+}
+
+.candidate_modal_close_button {
+    background-color: #ff0000;
+    color: #fff;
+    border: 1px solid #ff0000;
+}
+
+.assign_candidate_select {
+    width: 100%;
+
+    .ant-select-selector {
+
+        box-shadow: 0 0 0 2px rgba(49, 48, 77, 0.1) !important;
+        border-color: #4d4d63 !important;
+    }
+
+    .ant-select-selector:hover {
+        border-color: #161A30 !important;
+    }
+
 }
 
 /*

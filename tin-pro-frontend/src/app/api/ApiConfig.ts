@@ -67,6 +67,7 @@ const api = {
         getJobs: (page: number, size: number) => apiInstance.get('/api/jobs', { params: { page, size } }),
         getJobById: (id: string) => apiInstance.get(`/api/jobs/${id}`),
         getJobCreatedByRecruiter: (recruiterId: number) => apiInstance.get(`/api/jobs/by-recruiter/${recruiterId}`),
+        assignCandidateToJob: (jobId: number, candidateId: number) => apiInstance.post(`/api/jobs/${jobId}/assign-candidate/${candidateId}`),
     },
     admin: {
 

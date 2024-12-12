@@ -46,7 +46,8 @@
             "years": "Years of experience",
             "skills": "Skills",
             "cv": "CV"
-        }
+        },
+        "assign": "Assign to a job"
     },
     "auth": {
         "email": "Email",
@@ -91,5 +92,18 @@
         "all": "All",
         "open": "Open",
         "closed": "Closed"
+    },
+    "job": {
+        "job": "Job",
+        "company": "Company",
+        "title": "Title",
+        "location": "Location",
+        "description": "Description",
+        "status": "Status",
+        "date": "Date",
+        "assignCandidate": "Assign Candidate",
+        "assign": "Assign",
+        "cancel": "Cancel",
+        "selectJob": "Select a job"
     }
 }
