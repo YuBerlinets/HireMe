@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../../../app/api/ApiConfig';
-import { useNavigate } from 'react-router-dom';
 
 interface User {
     email: string;
@@ -51,20 +50,6 @@ export const login = createAsyncThunk(
         }
     }
 );
-
-// export const resetPassword = createAsyncThunk(
-//     'auth/resetPassword',
-//     async (resetData: { email: string }, { rejectWithValue }) => {
-//         try {
-//             const response = await api.user.resetPassword(resetData.email);
-//             return response.data;
-//         } catch (error: any) {
-//             const statusCode = error.response?.status;
-//             return rejectWithValue(statusCode || 'Failed to reset password');
-//         }
-//     }
-// );
-
 
 const authSlice = createSlice({
     name: 'auth',

@@ -83,7 +83,14 @@
         "skillsExplanation": "*Please enter your skills separated by commas",
         "draggerText": "Click or drag your cv to this area to upload",
         "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf",
-        "recruiterJobs": "Posted Jobs"
+        "recruiterJobs": "Posted Jobs",
+        "assignedCandidates": "Assigned Candidates",
+        "assignedCandidate": {
+            "title": "Assigned Candidate",
+            "viewJob": "View Job Page",
+            "viewCandidate": "View Candidate Page",
+            "unassign": "Unassign"
+        }
     },
     "jobs": {
         "title": "Available Jobs",

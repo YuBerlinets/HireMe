@@ -78,7 +78,10 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
                     <span>{cvFileName}</span>
                     <FaTrashAlt onClick={handleCVDelete} className="cv_delete_button" />
 
-                    <a className="action_button cv_download_button" href={URL.createObjectURL(cv)} download>
+                    <a className="action_button cv_download_button"
+                        href={URL.createObjectURL(cv)}
+                        download={cvFileName}
+                    >
                         {t("buttons.download")}
                     </a>
                 </div>

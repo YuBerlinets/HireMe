@@ -6,7 +6,6 @@ import { Timeline } from "antd"
 import { api } from "../../app/api/ApiConfig"
 import { useParams } from "react-router-dom"
 import AssignCandidateModal from "./components/AssignCandidateModal"
-import Candidates from "./Candidates"
 
 export interface Candidate {
     firstName: string

@@ -1,8 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { RegisterData } from '../../features/auth/hooks/RegisterForm';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '../store/store';
-import { logout } from '../../features/auth/slices/authSlice';
+
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -68,6 +66,10 @@ const api = {
         getJobById: (id: string) => apiInstance.get(`/api/jobs/${id}`),
         getJobCreatedByRecruiter: (recruiterId: number) => apiInstance.get(`/api/jobs/by-recruiter/${recruiterId}`),
         assignCandidateToJob: (jobId: number, candidateId: number) => apiInstance.post(`/api/jobs/${jobId}/assign-candidate/${candidateId}`),
+    },
+    recruiter: {
+        postedJobs: () => apiInstance.get('/api/jobs/posted'),
+        assignedCandidatesJobs: () => apiInstance.get('/api/recruiters/assigned-jobs'),
     },
     admin: {
 

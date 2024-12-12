@@ -1,4 +1,4 @@
-import { Dropdown, Modal, Select } from "antd";
+import { Modal, Select } from "antd";
 import { api } from "../../../app/api/ApiConfig";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -13,25 +13,24 @@ interface JobVacancy {
     id: number;
     title: string;
     location: string;
-    company: string;
+    datePosted: string;
 }
+
 export default function AssignCandidateModal({ isOpen, onClose, candidateId }: AssignCandidateModalProps) {
     const { t } = useTranslation();
     const [jobs, setJobs] = useState<JobVacancy[]>([]);
     const [jobId, setJobId] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [recruiterId, setRecruiterId] = useState<number>(0);
 
     const getAllJobsByRecruiter = async () => {
-        if (!recruiterId) return;
         try {
-            const response = await api.job.getJobCreatedByRecruiter(recruiterId);
+            const response = await api.recruiter.postedJobs();
             setJobs(response.data);
         } catch (error) {
             setError("Error fetching jobs");
             console.error("Error fetching jobs", error);
         }
-    }
+    };
 
     const handleAssignCandidate = async () => {
         if (!jobId || !candidateId) return;
@@ -44,17 +43,16 @@ export default function AssignCandidateModal({ isOpen, onClose, candidateId }: A
             setError("Error assigning candidate to job");
             console.error("Error assigning candidate to job", error);
         }
-    }
+    };
 
     useEffect(() => {
         getAllJobsByRecruiter();
-    }, [recruiterId]);
+    }, []);
 
     return (
         <Modal
             onCancel={onClose}
             open={isOpen}
-            onOk={handleAssignCandidate}
             title={t("job.assignCandidate")}
             footer={[
                 <button key="back" className="action_button candidate_modal_close_button" onClick={onClose}>
@@ -65,17 +63,17 @@ export default function AssignCandidateModal({ isOpen, onClose, candidateId }: A
                 </button>,
             ]}
         >
-            <Select placeholder={t("job.selectJob")} className="assign_candidate_select">
-                {jobs.map(job => (
-                    <Select.Option
-                        key={job.id}
-                        value={job.id}
-                        onClick={() => setJobId(job.id)}
-                    >
-                        {job.title}
-                    </Select.Option>
-                ))}
-            </Select>
+
+            <Select
+                placeholder={t("job.selectJob")}
+                className="assign_candidate_select"
+                options={jobs.map((job) => ({
+                    value: job.id,
+                    label: `${job.title} - ${job.location} - ${job.datePosted}`,
+                }))}
+                onChange={(value: number) => setJobId(value)}
+            />
+            {error && <div className="modal_error">{error}</div>}
         </Modal>
-    )
-};
+    );
+}
