@@ -41,7 +41,7 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
                                     </Avatar>
                                 }
                                 title={candidate.candidateName}
-                                description={`${candidate.jobTitle} - ${candidate.jobLocation}`}
+                                description={`${candidate.jobTitle}`}
                             />
                             <div>{candidate.status}</div>
                         </Skeleton>

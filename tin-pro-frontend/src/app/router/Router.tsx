@@ -9,8 +9,9 @@ import AccountPage from "../../features/user/AccountPage";
 import Candidates from "../../features/candidate/Candidates";
 import JobsPage from "../../features/job/JobsPage";
 import JobPage from "../../features/job/JobPage";
+import ProtectedRoute from '../layouts/ProtectedRoutes';
 
-// const token = localStorage.getItem('token');
+const token = localStorage.getItem('token');
 
 const router = createBrowserRouter([
     {
@@ -23,32 +24,38 @@ const router = createBrowserRouter([
             },
             {
                 path: '/login',
-                element: <LoginPage />,
+                element: token ? <Navigate to="/" /> : <LoginPage />,
             },
             {
-                path: "/register",
-                element: <RegisterPage />
+                path: '/register',
+                element: token ? <Navigate to="/" /> : <RegisterPage />,
+
             },
             {
-                path: '/jobs',
-                element: <JobsPage />,
-            },
-            {
-                path: '/jobs/:jobId',
-                element: <JobPage />,
-            },
-            {
-                path: "/candidates",
-                element: <Candidates />
+                path: '/candidates',
+                element: <Candidates />,
             },
             {
                 path: '/candidates/:candidateId',
                 element: <CandidatePage />,
             },
             {
-                path: '/profile',
-                element: <AccountPage />,
-            }
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: '/jobs',
+                        element: <JobsPage />,
+                    },
+                    {
+                        path: '/jobs/:jobId',
+                        element: <JobPage />,
+                    },
+                    {
+                        path: '/profile',
+                        element: <AccountPage />,
+                    },
+                ],
+            },
         ],
     },
     {

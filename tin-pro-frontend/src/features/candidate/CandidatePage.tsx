@@ -71,11 +71,13 @@ export default function CandidatePage() {
 
     return (
         <>
-            <AssignCandidateModal
-                isOpen={isAssignCandidateModalVisible}
-                candidateId={parseInt(candidateId!)}
-                onClose={handleAssignCandidateModalVisibility}
-            />
+            {isUserRecruiter && (
+                <AssignCandidateModal
+                    isOpen={isAssignCandidateModalVisible}
+                    candidateId={parseInt(candidateId!)}
+                    onClose={handleAssignCandidateModalVisibility}
+                />
+            )}
             <div className="container">
 
                 <div className="candidate_page">

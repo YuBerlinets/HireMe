@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/style.css";
 import { useEffect, useState } from "react";
-import { VscAccount } from "react-icons/vsc";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { logout } from "../auth/slices/authSlice";
@@ -62,7 +61,7 @@ export default function Header() {
                                 {/* <VscAccount className="header_account_logo" /> */}
                                 <Avatar
                                     className="header_account_logo"
-                                    style={{ backgroundColor: "#87d068", verticalAlign: 'middle', fontSize: '22px' }}
+                                    style={{ backgroundColor: "#87d068", verticalAlign: 'middle', fontSize: '18px' }}
                                     size="large"
                                 >
                                     {user?.firstName.charAt(0).toUpperCase()}

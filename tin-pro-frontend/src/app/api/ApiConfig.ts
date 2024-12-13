@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { RegisterData } from '../../features/auth/hooks/RegisterForm';
+import { useNavigate } from 'react-router-dom';
 
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -27,18 +28,19 @@ apiInstance.interceptors.request.use(
     }
 );
 
-// apiInstance.interceptors.response.use(
-//     (response) => response,
-//     async (error) => {
-//         if (error.response.status === 401) {
-//             const dispatch = useAppDispatch();
-//             console.log('logout');
-//             dispatch(logout());
-//         }
-//         return Promise.reject(error);
-//     }
+apiInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
 
-// );
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+
 
 const api = {
     user: {
@@ -56,8 +58,8 @@ const api = {
             }
         }),
         deleteCV: () => apiInstance.delete('/api/candidates/cv'),
-        getCandidates: (page: number, size: number) => apiInstance.get('/api/candidates', { params: { page, size } }),
-        getCandidateInformation: (id: string) => apiInstance.get(`/api/candidates/${id}`),
+        getCandidates: (page: number, size: number) => apiInstance.get('/api/candidates/p', { params: { page, size } }),
+        getCandidateInformation: (id: string) => apiInstance.get(`/api/candidates/p/${id}`),
         updateCandidateInfo: (data: any) => apiInstance.patch('/api/candidates', data),
 
     },

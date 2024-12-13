@@ -26,7 +26,6 @@ export interface AssignedCandidate {
     candidateName: string,
     jobId: number,
     jobTitle: string,
-    jobLocation: string,
     status: string,
 }
 

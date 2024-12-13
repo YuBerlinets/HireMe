@@ -668,7 +668,6 @@ footer {
 .recruiter_fields {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     width: 70%;
 }
 
@@ -866,6 +865,10 @@ footer {
         align-self: center;
         margin-inline-start: 5px;
     }
+}
+
+.header_account_logo span {
+    user-select: none;
 }
 
 /*
