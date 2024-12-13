@@ -57,13 +57,13 @@ public class CandidateController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/p")
     public ResponseEntity<?> getAllCandidates(@PageableDefault(size = 10) Pageable pageable) {
         CandidatesPaginationDTO paginationDTO = candidateService.getCandidates(pageable);
         return ResponseEntity.ok(paginationDTO);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/p/{id}")
     public ResponseEntity<?> getCandidate(@PathVariable String id, Authentication authentication) {
         User user = checkAuthentication(authentication);
         boolean isRecruiter = user != null && user.getRecruiter() != null;

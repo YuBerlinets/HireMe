@@ -8,6 +8,5 @@ public class RecruiterAssignedJobs {
     private String candidateName;
     private Long jobId;
     private String jobTitle;
-    private String jobLocation;
     private String status;
 }

@@ -34,7 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/candidate/register", "/api/auth/refresh-token", "/api/auth/recruiter/register").permitAll()
                                 .requestMatchers("/api/users", "/api/users/**").hasAnyAuthority(RoleEnum.RECRUITER.name(), RoleEnum.ADMIN.name(), RoleEnum.CANDIDATE.name())
-                                .requestMatchers(HttpMethod.GET, "/api/candidates", "/api/candidates/{email}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/candidates/p/**").permitAll()
                                 .requestMatchers("/api/candidates", "/api/candidates/**").hasAnyAuthority(RoleEnum.RECRUITER.name(), RoleEnum.ADMIN.name(), RoleEnum.CANDIDATE.name())
                                 .requestMatchers("/api/admin", "/api/admin/**").hasAnyRole(RoleEnum.ADMIN.name())
                                 .requestMatchers("/", "/error").permitAll()
