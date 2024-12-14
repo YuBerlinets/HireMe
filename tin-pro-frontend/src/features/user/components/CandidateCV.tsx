@@ -20,7 +20,7 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
     const props: UploadProps = {
         name: "file",
         multiple: false,
-        accept: ".pdf,.doc,.docx",
+        accept: ".pdf",
 
         async customRequest({ file, onSuccess, onError }) {
             try {

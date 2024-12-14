@@ -22,6 +22,7 @@ interface UpdateRecruiterData {
 }
 
 export interface AssignedCandidate {
+    jobCandidateId: number;
     candidateId: number,
     candidateName: string,
     jobId: number,

@@ -6,6 +6,7 @@ import { Timeline } from "antd"
 import { api } from "../../app/api/ApiConfig"
 import { useParams } from "react-router-dom"
 import AssignCandidateModal from "./components/AssignCandidateModal"
+import CandidateCVViewer from "./components/CandidateCVViewer"
 
 export interface Candidate {
     firstName: string
@@ -23,6 +24,7 @@ export interface Candidate {
 export default function CandidatePage() {
     const { candidateId } = useParams<{ candidateId: string }>();
     const [isAssignCandidateModalVisible, setAssignCandidateModalVisibility] = useState(false);
+    const [isCVViewerVisible, setCVViewerVisibility] = useState(false);
     const [candidate, setCandidate] = useState<Candidate>({
         firstName: "",
         lastName: "",
@@ -35,6 +37,7 @@ export default function CandidatePage() {
         cvName: "",
         cv: null,
     });
+    const [cvFile, setCvFile] = useState<File | null>(null);
     const [isUserRecruiter, setUserRecruiter] = useState(false);
     const user = useAppSelector((state) => state.auth.user);
 
@@ -47,14 +50,28 @@ export default function CandidatePage() {
             const response = await api.candidate.getCandidateInformation(candidateId);
             const data = response.data;
             if (data.cv) {
-                data.cv = new Blob([data.cv], { type: "application/pdf" });
+                const binaryData = base64ToArrayBuffer(data.cv);
+                const blob = new Blob([binaryData], { type: "application/pdf" });
+                data.cv = blob;
             }
-            // console.log(data)
+
+
             setCandidate(data);
         } catch (error) {
             console.error("Error fetching candidate", error);
         }
     };
+
+    function base64ToArrayBuffer(base64: string): Uint8Array {
+        const binaryString = atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes;
+    }
+
 
     useEffect(() => {
         if (user?.role === "RECRUITER") {
@@ -64,10 +81,12 @@ export default function CandidatePage() {
     }, [user]);
 
     const handleAssignCandidateModalVisibility = () => {
-
         setAssignCandidateModalVisibility(!isAssignCandidateModalVisible);
     }
 
+    const handleCVViewerVisibility = () => {
+        setCVViewerVisibility(!isCVViewerVisible);
+    }
 
     return (
         <>
@@ -76,6 +95,14 @@ export default function CandidatePage() {
                     isOpen={isAssignCandidateModalVisible}
                     candidateId={parseInt(candidateId!)}
                     onClose={handleAssignCandidateModalVisibility}
+                />
+            )}
+            {isUserRecruiter && candidate.cv && candidate.cvName && (
+                <CandidateCVViewer
+                    open={isCVViewerVisible}
+                    cvName={candidate.cvName}
+                    cv={candidate.cv}
+                    onClose={handleCVViewerVisibility}
                 />
             )}
             <div className="container">
@@ -146,12 +173,12 @@ export default function CandidatePage() {
                             <div className="candidate_cv">
                                 <p className="section_title">{t('candidate.titles.cv')}</p>
                                 {candidate.cv && (
-                                    <a
-                                        href={URL.createObjectURL(candidate.cv)}
-                                        download={`${candidate.cvName}`}
+                                    <button
+                                        className="action_button open_cv_modal"
+                                        onClick={() => handleCVViewerVisibility()}
                                     >
-                                        {t('candidate.download')}
-                                    </a>
+                                        {t('candidate.downloadCV')}
+                                    </button>
                                 )}
                             </div>
                         )}

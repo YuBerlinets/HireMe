@@ -72,6 +72,7 @@ const api = {
     recruiter: {
         postedJobs: () => apiInstance.get('/api/jobs/posted'),
         assignedCandidatesJobs: () => apiInstance.get('/api/recruiters/assigned-jobs'),
+        unassignCandidateFromJob: (jobCandidateId: number) => apiInstance.delete(`/api/job-candidates/${jobCandidateId}`),
     },
     admin: {
 

@@ -2,6 +2,7 @@ import { List, Skeleton, Avatar } from "antd";
 import { useTranslation } from "react-i18next";
 import { AssignedCandidate } from "../RecruiterAccount";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../../app/api/ApiConfig";
 
 interface AssignedCandidatesProps {
     assignedCandidates: AssignedCandidate[];
@@ -10,6 +11,15 @@ interface AssignedCandidatesProps {
 export default function AssignedCandidates({ assignedCandidates }: AssignedCandidatesProps) {
     const { t } = useTranslation();
     const navigate = useNavigate();
+
+    const handleUnassignCandidate = async (jobCandidateId: number) => {
+        try {
+            await api.recruiter.unassignCandidateFromJob(jobCandidateId);
+            assignedCandidates = assignedCandidates.filter((candidate) => candidate.jobCandidateId !== jobCandidateId);
+        } catch (error) {
+            console.error("Error unassigning candidate", error);
+        }
+    };
 
     return (
         <div className="assigned_candidates">
@@ -27,7 +37,7 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
                             <a key="viewCandidate" onClick={() => navigate(`/candidates/${candidate.candidateId}`)}>
                                 {t("account.assignedCandidate.viewCandidate")}
                             </a>,
-                            <a key="unassign" onClick={() => console.log(`unassign candidate ${candidate.candidateId}`)}>
+                            <a key="unassign" onClick={() => handleUnassignCandidate(candidate.jobCandidateId)}>
                                 {t("account.assignedCandidate.unassign")}
                             </a>,
                         ]}

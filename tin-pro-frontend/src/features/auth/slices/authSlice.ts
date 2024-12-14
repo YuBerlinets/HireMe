@@ -70,6 +70,8 @@ const authSlice = createSlice({
 
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+
+            window.location.reload();
         },
     },
     extraReducers: (builder) => {

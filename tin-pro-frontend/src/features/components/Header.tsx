@@ -16,10 +16,14 @@ export default function Header() {
 
     const isLoggedIn = useAppSelector((state) => state.auth.isAuthenticated);
     const user = useAppSelector((state) => state.auth.user);
+
     useEffect(() => {
         if (isLoggedIn) {
             setIsUserLoggedIn(true);
+        } else {
+            setIsUserLoggedIn(false);
         }
+
     }, [isLoggedIn]);
 
 
