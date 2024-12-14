@@ -2,6 +2,7 @@ package ua.berlinets.tinprobackend.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Meta;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,4 +115,5 @@ public class JobController {
         jobService.assignCandidate(job, candidate, user.getRecruiter());
         return ResponseEntity.ok().build();
     }
+
 }

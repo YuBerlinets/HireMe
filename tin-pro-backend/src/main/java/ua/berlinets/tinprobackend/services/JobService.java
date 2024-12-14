@@ -113,4 +113,11 @@ public class JobService {
         jobCandidate.setStatus("PENDING");
         jobCandidateRepository.save(jobCandidate);
     }
+
+//    public void unassignCandidate(Job job, Candidate candidate, Recruiter recruiter) {
+//        JobCandidate jobCandidate = jobCandidateRepository.findByJobAndCandidateAndRecruiter(job, candidate, recruiter).orElse(null);
+//        if (jobCandidate != null) {
+//            jobCandidateRepository.delete(jobCandidate);
+//        }
+//    }
 }

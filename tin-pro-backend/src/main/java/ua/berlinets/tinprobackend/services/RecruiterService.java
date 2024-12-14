@@ -28,6 +28,7 @@ public class RecruiterService {
         List<JobCandidate> jobCandidates = jobCandidateRepository.findAllByRecruiter(recruiter);
         return jobCandidates.stream().map(jobCandidate -> {
             RecruiterAssignedJobs recruiterAssignedJobs = new RecruiterAssignedJobs();
+            recruiterAssignedJobs.setJobCandidateId(jobCandidate.getId());
             recruiterAssignedJobs.setCandidateId(jobCandidate.getCandidate().getId());
             recruiterAssignedJobs.setCandidateName(jobCandidate.getCandidate().getUser().getFirstName() + " " + jobCandidate.getCandidate().getUser().getLastName());
             recruiterAssignedJobs.setJobId(jobCandidate.getJob().getId());
