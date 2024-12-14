@@ -722,6 +722,12 @@ footer {
     padding: 8px;
     border: 1px solid #161A30;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.recruiter_job:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
 }
 
 
@@ -766,6 +772,8 @@ footer {
 }
 
 .jobs_filter {
+    display: flex;
+    gap: 10px;
     margin: 10px 0;
 }
 
@@ -871,10 +879,56 @@ footer {
         align-self: center;
         margin-inline-start: 5px;
     }
+
+    .ant-list-item-action a {
+        color: #31304D;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .ant-list-item-action a:hover {
+        color: #000000;
+    }
 }
 
 .header_account_logo span {
     user-select: none;
+}
+
+.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    border-color: #161A30 !important;
+    box-shadow: 0 0 0 2px rgba(22, 26, 48, 0.1) !important;
+}
+
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+    border-color: #161A30 !important;
+    box-shadow: 0 0 0 2px rgba(22, 26, 48, 0.1) !important;
+}
+
+.cv_viewer_pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.disabled_button {
+    background-color: #D8D9DA;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: default;
+}
+
+.disabled_button:hover {
+    background-color: #D8D9DA;
+}
+
+.cv_viewer_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*

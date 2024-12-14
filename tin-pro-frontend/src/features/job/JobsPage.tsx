@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { api } from "../../app/api/ApiConfig";
 import JobListItem from "./components/JobListItem";
 import Footer from "../components/Footer";
-import { Pagination, Skeleton } from "antd";
+import { Input, Pagination, Select, Skeleton } from "antd";
 
 export interface JobItem {
     id: number;
@@ -58,12 +58,21 @@ export default function JobsPage() {
                     <div className="jobs_actions">
 
                         <div className="jobs_filter">
-                            <input type="text" placeholder={t('jobs.search')} />
-                            <select>
-                                <option value="">{t('jobs.all')}</option>
-                                <option value="">{t('jobs.open')}</option>
-                                <option value="">{t('jobs.closed')}</option>
-                            </select>
+                            <Input placeholder={t('jobs.search')} />
+                            {/* <select>
+                                <option value="all">{t('jobs.all')}</option>
+                                <option value="open">{t('jobs.open')}</option>
+                                <option value="closed">{t('jobs.closed')}</option>
+                            </select> */}
+                            <Select
+                                placeholder={t('jobs.filter')}
+                                className="jobs_filter_select"
+                                options={[
+                                    { value: "all", label: t('jobs.all') },
+                                    { value: "open", label: t('jobs.open') },
+                                    { value: "closed", label: t('jobs.closed') },
+                                ]}
+                            />
                         </div>
                         <div className="jobs_pagination">
                             <Pagination

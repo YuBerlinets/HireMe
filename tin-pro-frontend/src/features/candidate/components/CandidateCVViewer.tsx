@@ -28,7 +28,7 @@ export default function CandidateCVViewer({
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
 
-    const {t}= useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (cv) {
@@ -65,36 +65,34 @@ export default function CandidateCVViewer({
             open={open}
             onCancel={onClose}
             width={800}
-            footer={[
-                <button key="back" onClick={onClose}>
-                    Close
-                </button>,
-            ]}
+            footer={null}
         >
-            <p>{cvName}</p>
             {cvUrl ? (
                 <div>
+                    {numPages > 0 && <div className="cv_viewer_pagination">
+                        <button className={`action_button ${pageNumber === 1 ? "disabled_button" : ""}`} onClick={goToPrevPage} disabled={pageNumber === 1}>
+                            {t("candidate.previous")}
+                        </button>
+                        <span>
+                            {t("candidate.pages", { pageNumber: pageNumber, numPages: numPages })}
+                        </span>
+                        <button className={`action_button ${pageNumber === numPages ? "disabled_button" : ""}`} onClick={goToNextPage} disabled={pageNumber === numPages}>
+                            {t("candidate.next")}
+                        </button>
+                    </div>
+                    }
                     <Document
                         file={cvUrl}
                         onLoadSuccess={onLoadSuccess}
                         onLoadError={(error) => console.error(error)}
+                        className="cv_viewer_document"
                     >
-                        <Page pageNumber={pageNumber} />
+                        <Page pageNumber={pageNumber} className="cv_viewer_page" width={750} />
                     </Document>
-                    <div>
-                        <button onClick={goToPrevPage} disabled={pageNumber === 1}>
-                            Previous
-                        </button>
-                        <span>
-                            Page {pageNumber} of {numPages}
-                        </span>
-                        <button onClick={goToNextPage} disabled={pageNumber === numPages}>
-                            Next
-                        </button>
-                    </div>
+
                 </div>
             ) : (
-                <p>No CV available</p>
+                <p>{t("candidate.noCV")}</p>
             )}
         </Modal>
     );

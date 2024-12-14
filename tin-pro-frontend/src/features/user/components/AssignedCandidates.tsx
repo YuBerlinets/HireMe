@@ -1,4 +1,4 @@
-import { List, Skeleton, Avatar } from "antd";
+import { List, Skeleton, Avatar, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { AssignedCandidate } from "../RecruiterAccount";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,21 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
             assignedCandidates = assignedCandidates.filter((candidate) => candidate.jobCandidateId !== jobCandidateId);
         } catch (error) {
             console.error("Error unassigning candidate", error);
+        }
+    };
+
+    const handleChangeJobCandidateStatus = async (oldStatus: string, jobCandidateId: number, status: string) => {
+        if (oldStatus === status) return;
+        try {
+            await api.recruiter.changeJobCandidateStatus(jobCandidateId, status);
+            assignedCandidates = assignedCandidates.map((candidate) => {
+                if (candidate.jobCandidateId === jobCandidateId) {
+                    candidate.status = status;
+                }
+                return candidate;
+            });
+        } catch (error) {
+            console.error("Error changing candidate status", error);
         }
     };
 
@@ -53,7 +68,16 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
                                 title={candidate.candidateName}
                                 description={`${candidate.jobTitle}`}
                             />
-                            <div>{candidate.status}</div>
+                            <Select
+                                defaultValue={candidate.status}
+                                style={{ width: 120 }}
+                                options={["PENDING", "REJECTED", "ACCEPTED"].map((status) => ({
+                                    label: status,
+                                    value: status,
+                                }))}
+                                onChange={(value) => handleChangeJobCandidateStatus(candidate.status, candidate.jobCandidateId, value)}
+
+                            />
                         </Skeleton>
                     </List.Item>
                 )}

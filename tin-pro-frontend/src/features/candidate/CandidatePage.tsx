@@ -7,6 +7,7 @@ import { api } from "../../app/api/ApiConfig"
 import { useParams } from "react-router-dom"
 import AssignCandidateModal from "./components/AssignCandidateModal"
 import CandidateCVViewer from "./components/CandidateCVViewer"
+import { base64ToArrayBuffer } from "./helpers/CVFormatter"
 
 export interface Candidate {
     firstName: string
@@ -55,23 +56,11 @@ export default function CandidatePage() {
                 data.cv = blob;
             }
 
-
             setCandidate(data);
         } catch (error) {
             console.error("Error fetching candidate", error);
         }
     };
-
-    function base64ToArrayBuffer(base64: string): Uint8Array {
-        const binaryString = atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes;
-    }
-
 
     useEffect(() => {
         if (user?.role === "RECRUITER") {
@@ -177,7 +166,7 @@ export default function CandidatePage() {
                                         className="action_button open_cv_modal"
                                         onClick={() => handleCVViewerVisibility()}
                                     >
-                                        {t('candidate.downloadCV')}
+                                        {t('candidate.viewCV')}
                                     </button>
                                 )}
                             </div>

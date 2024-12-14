@@ -4,14 +4,16 @@ import RecruiterAccount from "./RecruiterAccount";
 import { api } from "../../app/api/ApiConfig";
 import { Candidate, Recruiter, UserData } from "./models/UserModels";
 import { useTranslation } from "react-i18next";
+import { base64ToArrayBuffer } from "../candidate/helpers/CVFormatter";
+import { Skeleton, Card } from "antd";
 
 export default function AccountPage() {
     const [userData, setUserData] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { t } = useTranslation();
-    useEffect(() => {
 
+    useEffect(() => {
         const fetchUserData = async (): Promise<UserData> => {
             const response = await api.user.getUserInfo();
             if (response.status === 200) {
@@ -19,7 +21,7 @@ export default function AccountPage() {
                 if (data.role === "CANDIDATE") {
                     return {
                         ...data,
-                        cv: data.cv ? new Blob([data.cv], { type: "application/pdf" }) : null,
+                        cv: data.cv ? new Blob([base64ToArrayBuffer(data.cv)], { type: "application/pdf" }) : null,
                     } as Candidate;
                 }
                 return data as Recruiter;
@@ -30,7 +32,6 @@ export default function AccountPage() {
         const loadUserData = async () => {
             try {
                 const data = await fetchUserData();
-                // console.log(data);
                 setUserData(data);
             } catch (err) {
                 setError("Failed to load user data");
@@ -42,12 +43,34 @@ export default function AccountPage() {
         loadUserData();
     }, []);
 
-    if (loading) return <div >Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) {
+        return (
+            <div className="container">
+                <h1 className="account_main_title">
+                    Account
+                </h1>
+                <Card style={{ maxWidth: 1400, margin: "20px auto" }}>
+                    <Skeleton
+                        active
+                        avatar
+                        paragraph={{
+                            rows: 4,
+                        }}
+                    />
+                </Card>
+            </div>
+        );
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
     return (
         <div className="container">
-            <h1 className="account_main_title">Account • {userData?.role === "CANDIDATE" ? t('account.candidate') : t('account.recruiter')}</h1>
+            <h1 className="account_main_title">
+                Account • {userData?.role === "CANDIDATE" ? t('account.candidate') : t('account.recruiter')}
+            </h1>
             {userData?.role === "CANDIDATE" ? (
                 <CandidateAccount data={userData as Candidate} />
             ) : (

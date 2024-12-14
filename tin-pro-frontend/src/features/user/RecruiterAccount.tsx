@@ -1,5 +1,4 @@
-import { PostedJob, Recruiter } from "./models/UserModels";
-import { Field } from "./components/Field";
+import { Recruiter } from "./models/UserModels";
 import { Input } from "antd";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";

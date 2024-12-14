@@ -47,7 +47,13 @@
             "skills": "Skills",
             "cv": "CV"
         },
-        "assign": "Assign to a job"
+        "assign": "Assign to a job",
+        "viewCV": "View CV",
+        "cvViewer": "Candidate CV",
+        "noCV": "No CV available",
+        "previous": "Previous",
+        "next": "Next",
+        "pages": "Pages {{pageNumber}} of {{numPages}}"
     },
     "auth": {
         "email": "Email",
