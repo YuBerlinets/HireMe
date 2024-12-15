@@ -11,6 +11,7 @@ import java.time.Instant;
 @AllArgsConstructor
 public class JobResponseDTO {
     private Long id;
+    private String recruiterName;
     private String title;
     private String description;
     private String location;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ua.berlinets.tinprobackend.dto.recruiter.RecruiterAssignedJobs;
+import ua.berlinets.tinprobackend.dto.recruiter.UpdateRecruiterDTO;
 import ua.berlinets.tinprobackend.entities.JobCandidate;
 import ua.berlinets.tinprobackend.entities.Recruiter;
 import ua.berlinets.tinprobackend.repositories.JobCandidateRepository;
@@ -42,4 +43,22 @@ public class RecruiterService {
         }).toList();
     }
 
+    public void updateRecruiter(UpdateRecruiterDTO updateRecruiterDTO, Recruiter recruiter) {
+        if (updateRecruiterDTO.getFirstName() != null) {
+            recruiter.getUser().setFirstName(updateRecruiterDTO.getFirstName());
+        }
+        if (updateRecruiterDTO.getLastName() != null) {
+            recruiter.getUser().setLastName(updateRecruiterDTO.getLastName());
+        }
+        if (updateRecruiterDTO.getEmail() != null) {
+            recruiter.getUser().setEmail(updateRecruiterDTO.getEmail());
+        }
+        if (updateRecruiterDTO.getPosition() != null) {
+            recruiter.setPosition(updateRecruiterDTO.getPosition());
+        }
+        if (updateRecruiterDTO.getCompany() != null) {
+            recruiter.setCompany(updateRecruiterDTO.getCompany());
+        }
+        recruiterRepository.save(recruiter);
+    }
 }

@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ua.berlinets.tinprobackend.dto.jobCandidate.JobCandidateUpdateDTO;
 import ua.berlinets.tinprobackend.entities.Candidate;
 import ua.berlinets.tinprobackend.entities.Job;
 import ua.berlinets.tinprobackend.entities.JobCandidate;
@@ -45,6 +43,23 @@ public class JobCandidateController {
         if (jobCandidate.getRecruiter().getId() != user.getRecruiter().getId())
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         jobCandidateService.unassignCandidate(jobCandidateId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{jobCandidateId}")
+    public ResponseEntity<?> updateJobCandidate(@PathVariable Long jobCandidateId, @RequestBody JobCandidateUpdateDTO jobCandidateUpdateDTO, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        if (user.getRole() != RoleEnum.RECRUITER)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        JobCandidate jobCandidateFromDb = jobCandidateService.getJobCandidateById(jobCandidateId);
+        if (jobCandidateFromDb == null)
+            return ResponseEntity.notFound().build();
+        if (jobCandidateFromDb.getRecruiter().getId() != user.getRecruiter().getId())
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        jobCandidateService.updateJobCandidate(jobCandidateFromDb, jobCandidateUpdateDTO);
         return ResponseEntity.ok().build();
     }
 }

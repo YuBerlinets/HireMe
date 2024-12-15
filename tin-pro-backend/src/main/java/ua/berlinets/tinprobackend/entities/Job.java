@@ -16,7 +16,7 @@ public class Job {
     @Column
     private String title;
 
-    @Column
+    @Column(length = 2500)
     private String description;
 
     @Column

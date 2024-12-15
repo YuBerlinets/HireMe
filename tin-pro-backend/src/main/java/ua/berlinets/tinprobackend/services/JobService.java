@@ -32,7 +32,7 @@ public class JobService {
         if (job == null)
             return null;
         JobResponseDTO jobResponseDTO = modelMapper.map(job, JobResponseDTO.class);
-
+        jobResponseDTO.setRecruiterName(job.getRecruiter().getUser().getFirstName() + " " + job.getRecruiter().getUser().getLastName());
         jobResponseDTO.setCompany(job.getRecruiter().getCompany());
         jobResponseDTO.setDate(getFormattedDate(job.getDatePosted()));
         return jobResponseDTO;

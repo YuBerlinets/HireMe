@@ -33,7 +33,6 @@ public class CandidateService {
         if (updateCandidateDTO.getEmail() != null) {
             user.setEmail(updateCandidateDTO.getEmail());
         }
-
         Candidate candidate = user.getCandidate();
         if (updateCandidateDTO.getAboutMe() != null) {
             candidate.setAboutMe(updateCandidateDTO.getAboutMe());
