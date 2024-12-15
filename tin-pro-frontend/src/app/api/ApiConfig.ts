@@ -74,6 +74,7 @@ const api = {
         assignedCandidatesJobs: () => apiInstance.get('/api/recruiters/assigned-jobs'),
         unassignCandidateFromJob: (jobCandidateId: number) => apiInstance.delete(`/api/job-candidates/${jobCandidateId}`),
         changeJobCandidateStatus: (jobCandidateId: number, status: string) => apiInstance.patch(`/api/job-candidates/${jobCandidateId}`, { status }),
+        updateRecruiterInfo: (data: any) => apiInstance.patch('/api/recruiters', data),
     },
     admin: {
 

@@ -1,5 +1,5 @@
 import { Recruiter } from "./models/UserModels";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import RecruiterPostedJobs from "./components/RecruiterPostedJobs";
@@ -38,6 +38,7 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
         company: data.company,
     });
     const [assignedCandidates, setAssignedCandidates] = useState<AssignedCandidate[]>([]);
+    const [messageApi, contextHolder] = message.useMessage();
 
     const { t } = useTranslation();
 
@@ -59,8 +60,27 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
         fetchAssignedCandidates();
     }, []);
 
+    const handleSave = async () => {
+        try {
+            console.log(formData);
+            const response = await api.recruiter.updateRecruiterInfo(formData);
+            if (response.status === 200) {
+                messageApi.open({
+                    type: 'success',
+                    content: t('account.success'),
+                });
+            }
+        } catch (error) {
+            messageApi.open({
+                type: 'error',
+                content: t('account.error'),
+            });
+        }
+    };
+
     return (
         <>
+            {contextHolder}
             <div className="recruiter_acc_page">
                 <div className="recruiter_fields">
                     <h2 className="block_title">{t('account.personalInformation')}</h2>
@@ -104,7 +124,12 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
                             />
                         </div>
 
-                        <button className="action_button save_acc_button">{t('buttons.save')}</button>
+                        <button
+                            className="action_button save_acc_button"
+                            onClick={handleSave}
+                        >
+                            {t('buttons.save')}
+                        </button>
 
                     </div>
                 </div>
