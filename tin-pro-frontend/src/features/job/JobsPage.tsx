@@ -59,11 +59,6 @@ export default function JobsPage() {
 
                         <div className="jobs_filter">
                             <Input placeholder={t('jobs.search')} />
-                            {/* <select>
-                                <option value="all">{t('jobs.all')}</option>
-                                <option value="open">{t('jobs.open')}</option>
-                                <option value="closed">{t('jobs.closed')}</option>
-                            </select> */}
                             <Select
                                 placeholder={t('jobs.filter')}
                                 className="jobs_filter_select"

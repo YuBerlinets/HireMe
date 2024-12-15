@@ -5,6 +5,7 @@ import { api } from "../../app/api/ApiConfig";
 
 interface Job {
     id: number;
+    recruiterName: string;
     title: string;
     description: string;
     location: string;
@@ -14,11 +15,11 @@ interface Job {
 }
 
 
-
 export default function JobPage() {
     const { jobId } = useParams<{ jobId: string }>();
     const [job, setJob] = useState<Job>({
         id: 0,
+        recruiterName: "",
         title: "",
         description: "",
         location: "",
@@ -55,10 +56,6 @@ export default function JobPage() {
                         <span className="job_field_value">{job.company}</span>
                     </div>
                     <div className="job_field">
-                        <span className="job_field_label">{t("job.description")}: </span>
-                        <span className="job_field_value">{job.description}</span>
-                    </div>
-                    <div className="job_field">
                         <span className="job_field_label">{t("job.location")}: </span>
                         <span className="job_field_value">{job.location}</span>
                     </div>
@@ -70,6 +67,16 @@ export default function JobPage() {
                         <span className="job_field_label">{t("job.date")}: </span>
                         <span className="job_field_value">{job.date}</span>
                     </div>
+                    <div className="job_field job_description">
+                        <span className="job_field_label">{t("job.description")}: </span>
+                        <span className="job_field_value">{job.description}</span>
+                    </div>
+                </div>
+                <div className="posted_by">
+                    <h2>{t("job.postedBy")}</h2>
+                    <span>{t("job.postedByRecruiter")}: {job.recruiterName}</span>
+                    <span>{t("job.postedByCompany")}: {job.company}</span>
+
                 </div>
             </div>
         </div>

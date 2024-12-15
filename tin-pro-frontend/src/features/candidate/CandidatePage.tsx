@@ -38,7 +38,6 @@ export default function CandidatePage() {
         cvName: "",
         cv: null,
     });
-    const [cvFile, setCvFile] = useState<File | null>(null);
     const [isUserRecruiter, setUserRecruiter] = useState(false);
     const user = useAppSelector((state) => state.auth.user);
 

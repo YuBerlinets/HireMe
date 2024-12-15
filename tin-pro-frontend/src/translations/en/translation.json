@@ -102,6 +102,7 @@
         "title": "Available Jobs",
         "description": "Explore and apply to the latest job opportunities.",
         "search": "Search for jobs...",
+        "filter": "Filters",
         "all": "All",
         "open": "Open",
         "closed": "Closed"
@@ -117,6 +118,9 @@
         "assignCandidate": "Assign Candidate",
         "assign": "Assign",
         "cancel": "Cancel",
-        "selectJob": "Select a job"
+        "selectJob": "Select a job",
+        "postedByRecruiter": "Recruiter",
+        "postedByCompany": "Company",
+        "postedBy": "Posted by"
     }
 }
