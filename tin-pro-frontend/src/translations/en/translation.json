@@ -2,7 +2,8 @@
     "buttons": {
         "submit": "Submit",
         "save": "Save",
-        "download": "Download"
+        "download": "Download",
+        "update": "Update"
     },
     "footer": {
         "language": "Language",
@@ -91,6 +92,7 @@
         "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf",
         "recruiterJobs": "Posted Jobs",
         "assignedCandidates": "Assigned Candidates",
+        "updateJob": "Update Job",
         "assignedCandidate": {
             "title": "Assigned Candidate",
             "viewJob": "View Job Page",

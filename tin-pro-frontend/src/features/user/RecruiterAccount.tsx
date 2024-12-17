@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import RecruiterPostedJobs from "./components/RecruiterPostedJobs";
 import { api } from "../../app/api/ApiConfig";
 import AssignedCandidates from "./components/AssignedCandidates";
+import UpdateJobModal from "./components/UpdateJobModal";
 
 
 
@@ -77,6 +78,8 @@ export default function RecruiterAccount({ data }: RecruiterAccountProps) {
             });
         }
     };
+
+   
 
     return (
         <>

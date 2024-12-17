@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { RegisterData } from '../../features/auth/hooks/RegisterForm';
-import { useNavigate } from 'react-router-dom';
+import { UpdateJobData } from '../../features/user/components/UpdateJobModal';
 
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -68,6 +68,7 @@ const api = {
         getJobById: (id: string) => apiInstance.get(`/api/jobs/${id}`),
         getJobCreatedByRecruiter: (recruiterId: number) => apiInstance.get(`/api/jobs/by-recruiter/${recruiterId}`),
         assignCandidateToJob: (jobId: number, candidateId: number) => apiInstance.post(`/api/jobs/${jobId}/assign-candidate/${candidateId}`),
+        updateJob: (jobId: number, data: UpdateJobData) => apiInstance.patch(`/api/jobs/${jobId}`, data),
     },
     recruiter: {
         postedJobs: () => apiInstance.get('/api/jobs/posted'),

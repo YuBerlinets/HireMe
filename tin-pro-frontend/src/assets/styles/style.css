@@ -731,7 +731,6 @@ footer {
     transition: all 0.4s ease-in-out;
 }
 
-
 .jobs_page {
     margin: 20px 0;
 }
@@ -803,7 +802,7 @@ footer {
 
 .recruiter__job-date {
     color: #4B5945;
-    grid-column: span 2;
+    
 }
 
 .no_jobs {
@@ -823,7 +822,7 @@ footer {
 
 .job_info {
     display: grid;
-    width: 80%;
+    width: 75%;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
@@ -955,18 +954,24 @@ footer {
 .posted_by {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 25%;
     gap: 10px;
     font-size: 16px;
     border: 1px solid #161A30;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
+    height: fit-content;
 }
 
 .posted_by h2 {
     font-size: 20px;
     text-align: center;
     margin: 0;
+}
+
+.update_button {
+    font-size: 16px;
+    padding: 8px 12px;
 }
 
 /*
