@@ -4,6 +4,7 @@ import Dragger from "antd/es/upload/Dragger";
 import { useTranslation } from "react-i18next";
 import { api } from "../../../app/api/ApiConfig";
 import { FaFileAlt, FaTrashAlt } from "react-icons/fa";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 interface CandidateCVProps {
     cvName: string;
@@ -76,7 +77,8 @@ export default function CandidateCV({ cvName, cv: initialCv }: CandidateCVProps)
             {cv ? (
                 <div className="candidate_cv_card">
                     <span>{cvFileName}</span>
-                    <FaTrashAlt onClick={handleCVDelete} className="cv_delete_button" />
+                    <RiDeleteBin6Fill onClick={handleCVDelete} className="cv_delete_button" />
+
 
                     <a className="action_button cv_download_button"
                         href={URL.createObjectURL(cv)}

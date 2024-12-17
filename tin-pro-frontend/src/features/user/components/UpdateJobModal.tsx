@@ -1,7 +1,6 @@
 import { Input, Modal } from "antd";
 import { useState, useEffect } from "react";
 import { PostedJob } from "../models/UserModels";
-import { t } from "i18next";
 import { api } from "../../../app/api/ApiConfig";
 import { useTranslation } from "react-i18next";
 
@@ -66,7 +65,7 @@ export default function UpdateJobModal({ job, visible, onClose }: UpdateJobModal
         <>
             <Modal
                 open={visible}
-                title={t("account*.updateJob")}
+                title={t("account.updateJob")}
                 onCancel={onClose}
                 onOk={handleUpdateJob}
                 footer={[

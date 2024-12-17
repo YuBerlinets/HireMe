@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useTranslation } from "react-i18next";
-
-import "../../assets/styles/style.css";
 import CandidateItem from "./components/CandidateItem";
 import { useEffect, useState } from "react";
 import { Pagination, Skeleton } from "antd";
 import { api } from "../../app/api/ApiConfig";
+
+import "../../assets/styles/style.css";
 
 interface CandidatesPagination {
     candidates: CandidateItem[];

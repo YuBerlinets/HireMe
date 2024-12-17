@@ -5,6 +5,7 @@ import { api } from "../../app/api/ApiConfig";
 import { useTranslation } from "react-i18next";
 import CandidateCV from "./components/CandidateCV";
 import CandidateCard from "./components/CandidateCard";
+import SkillsSection from "./components/SkillsSection";
 
 interface CandidateAccountProps {
     data: Candidate;
@@ -44,8 +45,10 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
     };
 
     const handleSave = async () => {
+        console.log("Saving data", formData.skills);
         try {
             const response = await api.candidate.updateCandidateInfo(formData);
+
             if (response.status === 200) {
                 messageApi.open({
                     type: 'success',
@@ -84,6 +87,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
             yearsOfExperience: value,
         }));
     };
+
     return (
         <>
             {contextHolder}
@@ -151,24 +155,10 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                         </div>
                     </div>
 
-                    <div className="skills_section">
-                        <span className="skills_section_text">{t('account.skills')}</span>
-                        <div className="skills_section_list">
-
-                            {formData.skills && formData.skills.length > 0 && formData.skills.split(',').map((skill, index) => (
-                                skill !== "" &&
-                                <div key={index} className="skill_bar">
-                                    {skill}
-                                </div>
-                            ))}
-                        </div>
-                        <Input
-                            value={formData.skills}
-                            onChange={(e) => handleInputChange("skills", e.target.value)}
-                            placeholder="Skills"
-                        />
-                        <span className="skills_explanation">{t('account.skillsExplanation')}</span>
-                    </div>
+                    <SkillsSection
+                        skills={formData.skills}
+                        handleInputChange={handleInputChange}
+                    />
 
                     <div className="candidate_field">
                         <span>{t('account.about')}</span>

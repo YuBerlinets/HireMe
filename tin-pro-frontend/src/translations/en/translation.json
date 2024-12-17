@@ -3,7 +3,8 @@
         "submit": "Submit",
         "save": "Save",
         "download": "Download",
-        "update": "Update"
+        "update": "Update",
+        "add":"Add"
     },
     "footer": {
         "language": "Language",
@@ -98,6 +99,10 @@
             "viewJob": "View Job Page",
             "viewCandidate": "View Candidate Page",
             "unassign": "Unassign"
+        },
+        "skillsMessages":{
+            "limit": "You can add up to 20 skills",
+            "copy": "There is such skill already"
         }
     },
     "jobs": {

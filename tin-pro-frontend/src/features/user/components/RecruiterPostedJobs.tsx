@@ -17,7 +17,6 @@ export default function RecruiterPostedJobs({ jobs }: RecruiterPostedJobsProps) 
 
     const openUpdateJobModal = (job: PostedJob, event: React.MouseEvent) => {
         event.stopPropagation();
-        console.log(job);
         setCurrentJob(job);
         setIsUpdateJobModalVisible(true);
     };

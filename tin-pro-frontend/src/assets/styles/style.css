@@ -622,8 +622,8 @@ footer {
     border: 1px solid red;
     color: #fff;
     border-radius: 5px;
-    font-size: 18px;
-    padding: 4px 8px;
+    font-size: 28px;
+    padding: 2px 4px;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     justify-self: flex-end;
@@ -802,7 +802,7 @@ footer {
 
 .recruiter__job-date {
     color: #4B5945;
-    
+
 }
 
 .no_jobs {
@@ -973,6 +973,38 @@ footer {
     font-size: 16px;
     padding: 8px 12px;
 }
+
+.add_skill_button {
+    width: 80px;
+}
+
+.add_skill_button.disabled_button {
+    background-color: #8a8a8a;
+
+}
+
+.ant-tag-close-icon {
+    color: #fff !important;
+}
+
+.limit_error {
+    margin: 5px 0;
+    color: #ff0000;
+}
+
+.user_acc_card_avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    margin: 5px auto;
+
+    .ant-avatar-string {
+        scale: 2.4;
+    }
+}
+
 
 /*
 #272829
