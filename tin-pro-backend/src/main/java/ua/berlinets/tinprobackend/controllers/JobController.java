@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.berlinets.tinprobackend.dto.job.JobRequestDTO;
 import ua.berlinets.tinprobackend.dto.job.JobResponseDTO;
+import ua.berlinets.tinprobackend.dto.job.UpdateJobDTO;
 import ua.berlinets.tinprobackend.entities.Candidate;
 import ua.berlinets.tinprobackend.entities.Job;
 import ua.berlinets.tinprobackend.entities.Recruiter;
@@ -113,6 +114,22 @@ public class JobController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         jobService.assignCandidate(job, candidate, user.getRecruiter());
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{jobId}")
+    public ResponseEntity<?> updateJob(@PathVariable Long jobId, @RequestBody UpdateJobDTO updateJobDTO, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (user.getRole() != RoleEnum.RECRUITER)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Job job = jobService.getJobById(jobId);
+        if (job == null)
+            return ResponseEntity.notFound().build();
+        if (job.getRecruiter().getId() != user.getRecruiter().getId())
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        jobService.updateJob(job, updateJobDTO);
         return ResponseEntity.ok().build();
     }
 

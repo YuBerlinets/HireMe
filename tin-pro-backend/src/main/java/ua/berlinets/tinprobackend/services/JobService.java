@@ -114,6 +114,19 @@ public class JobService {
         jobCandidateRepository.save(jobCandidate);
     }
 
+    public void updateJob(Job job, UpdateJobDTO updateJobDTO) {
+        if (updateJobDTO.getTitle() != null) {
+            job.setTitle(updateJobDTO.getTitle());
+        }
+        if (updateJobDTO.getDescription() != null) {
+            job.setDescription(updateJobDTO.getDescription());
+        }
+        if (updateJobDTO.getLocation() != null) {
+            job.setLocation(updateJobDTO.getLocation());
+        }
+        jobRepository.save(job);
+    }
+
 //    public void unassignCandidate(Job job, Candidate candidate, Recruiter recruiter) {
 //        JobCandidate jobCandidate = jobCandidateRepository.findByJobAndCandidateAndRecruiter(job, candidate, recruiter).orElse(null);
 //        if (jobCandidate != null) {
