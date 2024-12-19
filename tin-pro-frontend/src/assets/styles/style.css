@@ -186,7 +186,9 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 10px 0;
+    margin-top: 10px;
+    margin-bottom: 50px;
+
 }
 
 .candidate_card {
@@ -732,13 +734,15 @@ footer {
 }
 
 .jobs_page {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .jobs_list {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 
 .job_item {
@@ -1005,6 +1009,30 @@ footer {
     }
 }
 
+.change_language_button {
+    background-color: #fff;
+    color: #161A30;
+    border: 1px solid #161A30;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    margin: 0 2px;
+    transition: all 0.4s ease-in-out;
+}
+
+.change_language_button:hover {
+    background-color: #161A30;
+    color: #fff;
+}
+
+.change_language_button.active {
+    background-color: #161A30;
+    color: #fff;
+}
+
+.change_language_button.active:hover {
+    background-color: #31304D;
+}
 
 /*
 #272829

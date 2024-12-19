@@ -21,8 +21,8 @@ export default function Footer() {
                 </div>
                 <div className="footer_language_switch">
                     <p >{t('footer.language')}</p>
-                    <button onClick={() => changeLanguage("en")}>EN</button>
-                    <button onClick={() => changeLanguage("uk")}>UA</button>
+                    <button className={`change_language_button ${i18n.language === 'en' ? "active" : ""}`} onClick={() => changeLanguage("en")}>EN</button>
+                    <button className={`change_language_button ${i18n.language === 'uk' ? "active" : ""}`} onClick={() => changeLanguage("uk")}>UA</button>
 
                 </div>
             </div>

@@ -4,7 +4,7 @@
         "save": "Save",
         "download": "Download",
         "update": "Update",
-        "add":"Add"
+        "add": "Add"
     },
     "footer": {
         "language": "Language",
@@ -90,7 +90,7 @@
         "error": "An error occurred while updating the account",
         "skillsExplanation": "*Please enter your skills separated by commas",
         "draggerText": "Click or drag your cv to this area to upload",
-        "draggerHint": "Support for a single file with a size of up to 5MB .doc, .docx, .pdf",
+        "draggerHint": "Support for a single file with a size of up to 5MB .pdf",
         "recruiterJobs": "Posted Jobs",
         "assignedCandidates": "Assigned Candidates",
         "updateJob": "Update Job",
@@ -100,7 +100,7 @@
             "viewCandidate": "View Candidate Page",
             "unassign": "Unassign"
         },
-        "skillsMessages":{
+        "skillsMessages": {
             "limit": "You can add up to 20 skills",
             "copy": "There is such skill already"
         }
