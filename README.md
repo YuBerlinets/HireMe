@@ -22,5 +22,8 @@ This project is a Candidate Management System, designed to simplify the process 
 
 ![Candidate Account Page](https://github.com/user-attachments/assets/4969ca39-7ebb-4235-b6c9-4d4ee352cc8e)
 ![Candidates_Page](https://github.com/user-attachments/assets/dbf3d1e3-bcb5-4281-a5b1-debe108250f1)
+![Candidate_Page](https://github.com/user-attachments/assets/5ed54409-63aa-4704-80d0-bcc783727215)
+![CV Viewer](https://github.com/user-attachments/assets/c81dc48a-5a1b-4f3a-9ba6-a44452af9e5b)
+![Recruiter Account Page](https://github.com/user-attachments/assets/d218163a-0632-4c4d-a9c7-1480ce5cb6ff)
 
 *Consider changing values in the .env file for the proper work
