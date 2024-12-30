@@ -3,7 +3,7 @@ import { message, UploadProps } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import { useTranslation } from "react-i18next";
 import { api } from "../../../app/api/ApiConfig";
-import { FaFileAlt, FaTrashAlt } from "react-icons/fa";
+import { FaFileAlt } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 interface CandidateCVProps {

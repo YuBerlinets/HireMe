@@ -165,7 +165,7 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                         <Input.TextArea
                             value={formData.aboutMe}
                             showCount
-                            maxLength={1000}
+                            maxLength={3000}
                             onChange={(e) => handleInputChange("aboutMe", e.target.value)}
                             placeholder="About Me"
                             style={{ height: 320, resize: 'none', padding: '5px', fontSize: '16px' }}

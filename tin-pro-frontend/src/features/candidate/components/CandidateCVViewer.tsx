@@ -27,6 +27,7 @@ export default function CandidateCVViewer({
     const [cvUrl, setCvUrl] = useState<string | null>(null);
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
+    const [scale, setScale] = useState<number>(1);
 
     const { t } = useTranslation();
 
@@ -42,6 +43,20 @@ export default function CandidateCVViewer({
             setCvUrl(null);
         }
     }, [cv]);
+
+    useEffect(() => {
+        if (window.innerWidth < 768) {
+            setScale(0.5);
+
+        } else if (window.innerWidth < 1024) {
+            setScale(0.75);
+
+        }
+        else {
+            setScale(1);
+        }
+
+    }, []);
 
     const onLoadSuccess = (pdf: any) => {
         setNumPages(pdf.numPages);
@@ -64,7 +79,7 @@ export default function CandidateCVViewer({
             title={t("candidate.cvViewer")}
             open={open}
             onCancel={onClose}
-            width={800}
+            width={800 * scale}
             footer={null}
         >
             {cvUrl ? (
@@ -87,7 +102,7 @@ export default function CandidateCVViewer({
                         onLoadError={(error) => console.error(error)}
                         className="cv_viewer_document"
                     >
-                        <Page pageNumber={pageNumber} className="cv_viewer_page" width={750} />
+                        <Page pageNumber={pageNumber} className="cv_viewer_page" width={750 * scale} />
                     </Document>
 
                 </div>
