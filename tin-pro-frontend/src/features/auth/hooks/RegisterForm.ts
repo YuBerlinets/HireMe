@@ -3,10 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { checkPasswordValidity, validateEmail } from '../helpers/AuthHelper';
 import { api } from '../../../app/api/ApiConfig';
-import { useAppDispatch } from '../../../app/store/store';
-import { login } from '../slices/authSlice';
-
-
 
 export interface RegisterData {
     email: string

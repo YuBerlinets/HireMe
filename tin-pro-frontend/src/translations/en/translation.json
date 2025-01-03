@@ -71,6 +71,13 @@
             "password": "At least 8 characters length"
         }
     },
+    "login": {
+        "error": {
+            "empty": "Please fill in all fields",
+            "invalidEmail": "Invalid format of email",
+            "invalid": "Invalid email or password"
+        }
+    },
     "account": {
         "candidate": "Candidate",
         "recruiter": "Recruiter",

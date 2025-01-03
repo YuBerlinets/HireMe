@@ -84,6 +84,7 @@ export default function CandidateCVViewer({
         >
             {cvUrl ? (
                 <div>
+                    {cvName && <h3>{cvName}</h3>}
                     {numPages > 0 && <div className="cv_viewer_pagination">
                         <button className={`action_button ${pageNumber === 1 ? "disabled_button" : ""}`} onClick={goToPrevPage} disabled={pageNumber === 1}>
                             {t("candidate.previous")}

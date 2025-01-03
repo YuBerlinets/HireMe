@@ -31,7 +31,8 @@ apiInstance.interceptors.request.use(
 apiInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response && error.response.status === 401) {
+        const isLogin = window.location.href != '/login';
+        if (error.response && error.response.status === 401 && !isLogin) {
             localStorage.removeItem('user');
             localStorage.removeItem('token');
 

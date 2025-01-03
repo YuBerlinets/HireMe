@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { login } from '../slices/authSlice';
 import { useAppDispatch } from '../../../app/store/store';
+import { validateEmail } from '../helpers/AuthHelper';
 
 interface LoginData {
     login: string;
@@ -40,10 +41,13 @@ export const useLoginForm = (): UseLoginFormReturn => {
             setLoginError(t('login.error.empty'));
             return;
         }
-
+        if (!validateEmail(loginData.login)) {
+            setLoginError(t('login.error.invalidEmail'));
+            return;
+        }
         try {
             const result = await dispatch(login(loginData)).unwrap();
-            if (result.user) {
+            if (result.user && result.token) {
                 navigate('/');
             }
         } catch (error) {
