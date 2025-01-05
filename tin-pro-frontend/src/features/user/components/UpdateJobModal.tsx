@@ -13,7 +13,6 @@ interface UpdateJobModalProps {
 export interface UpdateJobData {
     title: string;
     location: string;
-    company: string;
     date: string;
     status: string;
 }
@@ -22,7 +21,6 @@ export default function UpdateJobModal({ job, visible, onClose }: UpdateJobModal
     const [updatedJob, setUpdatedJob] = useState<UpdateJobData>({
         title: job.title,
         location: job.location,
-        company: job.company,
         date: job.date,
         status: job.status,
     });
@@ -36,7 +34,6 @@ export default function UpdateJobModal({ job, visible, onClose }: UpdateJobModal
             setUpdatedJob({
                 title: job.title,
                 location: job.location,
-                company: job.company,
                 date: job.date,
                 status: job.status,
             });
@@ -47,7 +44,7 @@ export default function UpdateJobModal({ job, visible, onClose }: UpdateJobModal
 
     const handleUpdateJob = async () => {
         setError("");
-        if (!updatedJob.title || !updatedJob.location || !updatedJob.company || !updatedJob.date || !updatedJob.status) {
+        if (!updatedJob.title || !updatedJob.location || !updatedJob.date || !updatedJob.status) {
             setError("All fields are required");
             return;
         }
@@ -87,12 +84,6 @@ export default function UpdateJobModal({ job, visible, onClose }: UpdateJobModal
                     placeholder="Location"
                     value={updatedJob.location}
                     onChange={(e) => setUpdatedJob({ ...updatedJob, location: e.target.value })}
-                />
-                <span className="update_job_labe">{t('job.company')}</span>
-                <Input
-                    placeholder="Company"
-                    value={updatedJob.company}
-                    onChange={(e) => setUpdatedJob({ ...updatedJob, company: e.target.value })}
                 />
                 <span className="update_job_labe">{t('job.date')}</span>
                 <Input

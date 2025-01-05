@@ -560,11 +560,11 @@ footer {
     font-weight: 600;
 }
 
-
+.delete_acc_button,
 .save_acc_button {
     width: 180px;
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .skills_section {
@@ -808,7 +808,7 @@ footer {
 
 .recruiter__job-date {
     color: #4B5945;
-
+    grid-column: span 2;
 }
 
 .no_jobs {
@@ -1047,6 +1047,33 @@ footer {
     text-align: center;
 }
 
+.delete_acc_button {
+    background-color: #ff0000;
+    color: #fff;
+    margin-left: 20px;
+    border: 1px solid #ff0000;
+}
+
+.delete_acc_button:hover {
+    background-color: #fff;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.delete_job_button {
+    background-color: #ff0000;
+    color: #fff;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+}
+
+.delete_job_button:hover {
+    background-color: #fff;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.job_delete_popconfirm {}
 
 @media screen and (max-width: 720px) {
     .user_acc {

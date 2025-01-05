@@ -3,19 +3,25 @@ import { useTranslation } from "react-i18next";
 import { AssignedCandidate } from "../RecruiterAccount";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../app/api/ApiConfig";
+import { useEffect, useState } from "react";
 
 interface AssignedCandidatesProps {
     assignedCandidates: AssignedCandidate[];
 }
 
 export default function AssignedCandidates({ assignedCandidates }: AssignedCandidatesProps) {
+    const [localAssignedCandidates, setLocalAssignedCandidates] = useState<AssignedCandidate[]>([]);
     const { t } = useTranslation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setLocalAssignedCandidates(assignedCandidates);
+    }, [assignedCandidates]);
 
     const handleUnassignCandidate = async (jobCandidateId: number) => {
         try {
             await api.recruiter.unassignCandidateFromJob(jobCandidateId);
-            assignedCandidates = assignedCandidates.filter((candidate) => candidate.jobCandidateId !== jobCandidateId);
+            setLocalAssignedCandidates((prev) => prev.filter((candidate) => candidate.jobCandidateId !== jobCandidateId));
         } catch (error) {
             console.error("Error unassigning candidate", error);
         }
@@ -25,12 +31,17 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
         if (oldStatus === status) return;
         try {
             await api.recruiter.changeJobCandidateStatus(jobCandidateId, status);
-            assignedCandidates = assignedCandidates.map((candidate) => {
-                if (candidate.jobCandidateId === jobCandidateId) {
-                    candidate.status = status;
-                }
-                return candidate;
-            });
+            setLocalAssignedCandidates((prev) =>
+                prev.map((candidate) => {
+                    if (candidate.jobCandidateId === jobCandidateId) {
+                        return {
+                            ...candidate,
+                            status,
+                        };
+                    }
+                    return candidate;
+                })
+            );
         } catch (error) {
             console.error("Error changing candidate status", error);
         }
@@ -42,7 +53,7 @@ export default function AssignedCandidates({ assignedCandidates }: AssignedCandi
             <List
                 className="assigned_candidates_list"
                 itemLayout="horizontal"
-                dataSource={assignedCandidates}
+                dataSource={localAssignedCandidates}
                 renderItem={(candidate) => (
                     <List.Item
                         actions={[

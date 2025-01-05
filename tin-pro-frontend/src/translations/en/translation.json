@@ -4,7 +4,11 @@
         "save": "Save",
         "download": "Download",
         "update": "Update",
-        "add": "Add"
+        "add": "Add",
+        "deleteAccount": "Delete Account",
+        "yes": "Yes",
+        "no": "No",
+        "delete": "Delete"
     },
     "footer": {
         "language": "Language",
@@ -101,6 +105,12 @@
         "recruiterJobs": "Posted Jobs",
         "assignedCandidates": "Assigned Candidates",
         "updateJob": "Update Job",
+        "deleteConfirm": "Account deletion",
+        "deleteMessage": "Are you sure you want to delete your account?",
+        "deleteSuccess": "Account deleted successfully",
+        "deleteError": "An error occurred while deleting the account",
+        "deletJob": "Delete Job",
+        "deleteJobConfirm": "Are you sure you want to delete this job?",
         "assignedCandidate": {
             "title": "Assigned Candidate",
             "viewJob": "View Job Page",

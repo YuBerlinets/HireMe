@@ -1,4 +1,4 @@
-import { Input, Slider, message } from "antd";
+import { Input, Popconfirm, Slider, message } from "antd";
 import { Candidate } from "./models/UserModels";
 import { useState } from "react";
 import { api } from "../../app/api/ApiConfig";
@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import CandidateCV from "./components/CandidateCV";
 import CandidateCard from "./components/CandidateCard";
 import SkillsSection from "./components/SkillsSection";
+import { useAppDispatch } from "../../app/store/store";
+import { logout } from "../auth/slices/authSlice";
 
 interface CandidateAccountProps {
     data: Candidate;
@@ -36,6 +38,8 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
         desiredSalary: data.desiredSalary,
         skills: data.skills,
     });
+
+    const dispatch = useAppDispatch();
 
     const handleInputChange = (field: keyof Candidate, value: string | number) => {
         setFormData((prev) => ({
@@ -87,6 +91,26 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
             yearsOfExperience: value,
         }));
     };
+
+    const handleDeleteAccount = async () => {
+        try {
+            const response = await api.user.deleteAccount();
+            if (response.status === 200) {
+                messageApi.open({
+                    type: 'success',
+                    content: t('account.deleteSuccess'),
+                });
+                setTimeout(() => {
+                    dispatch(logout());
+                }, 2000);
+            }
+        } catch (error) {
+            messageApi.open({
+                type: 'error',
+                content: t('account.deleteError'),
+            });
+        }
+    }
 
     return (
         <>
@@ -171,10 +195,25 @@ export default function CandidateAccount({ data }: CandidateAccountProps) {
                             style={{ height: 320, resize: 'none', padding: '5px', fontSize: '16px' }}
                         />
                     </div>
+                    
+                    <div className="account_buttons">
+                            <button onClick={handleSave} className="action_button save_acc_button">
+                                {t('buttons.save')}
+                            </button>
+                            <Popconfirm
+                                title={t('account.deleteConfirm')}
+                                description={t('account.deleteMessage')}
+                                onConfirm={handleDeleteAccount}
 
-                    <button onClick={handleSave} className="action_button save_acc_button">
-                        {t('buttons.save')}
-                    </button>
+                                okText={t('buttons.yes')}
+                                cancelText={t('buttons.no')}
+                            >
+
+                                <button className="action_button delete_acc_button">
+                                    {t('buttons.deleteAccount')}
+                                </button>
+                            </Popconfirm>
+                        </div>
                 </div>
                 <div className="candidate_acc_info">
                     <CandidateCard data={data} />

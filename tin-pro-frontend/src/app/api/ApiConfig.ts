@@ -50,6 +50,7 @@ const api = {
         recruiterRegister: (candidateRegister: RegisterData) => apiInstance.post('/api/auth/recruiter/register', candidateRegister),
         authenticate: (login: string, password: string) => apiInstance.post('/api/auth/login', { login, password }),
         refreshToken: (refreshToken: string) => apiInstance.post('/api/users/refresh-token', { refreshToken }),
+        deleteAccount: () => apiInstance.delete('/api/users/delete-account'),
     },
 
     candidate: {
@@ -70,6 +71,7 @@ const api = {
         getJobCreatedByRecruiter: (recruiterId: number) => apiInstance.get(`/api/jobs/by-recruiter/${recruiterId}`),
         assignCandidateToJob: (jobId: number, candidateId: number) => apiInstance.post(`/api/jobs/${jobId}/assign-candidate/${candidateId}`),
         updateJob: (jobId: number, data: UpdateJobData) => apiInstance.patch(`/api/jobs/${jobId}`, data),
+        deleteJob: (jobId: number) => apiInstance.delete(`/api/jobs/${jobId}`),
     },
     recruiter: {
         postedJobs: () => apiInstance.get('/api/jobs/posted'),
