@@ -80,4 +80,8 @@ public class UserService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         return zonedDateTime.format(formatter);
     }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 }

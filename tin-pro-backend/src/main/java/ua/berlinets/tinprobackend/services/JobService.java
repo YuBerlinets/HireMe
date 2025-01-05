@@ -127,6 +127,10 @@ public class JobService {
         jobRepository.save(job);
     }
 
+    public void deleteJob(Job job) {
+        jobRepository.delete(job);
+    }
+
 //    public void unassignCandidate(Job job, Candidate candidate, Recruiter recruiter) {
 //        JobCandidate jobCandidate = jobCandidateRepository.findByJobAndCandidateAndRecruiter(job, candidate, recruiter).orElse(null);
 //        if (jobCandidate != null) {

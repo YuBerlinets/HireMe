@@ -133,4 +133,20 @@ public class JobController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{jobId}")
+    public ResponseEntity<?> deleteJob(@PathVariable Long jobId, Authentication authentication) {
+        User user = checkAuthentication(authentication);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (user.getRole() != RoleEnum.RECRUITER)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Job job = jobService.getJobById(jobId);
+        if (job == null)
+            return ResponseEntity.notFound().build();
+        if (job.getRecruiter().getId() != user.getRecruiter().getId())
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        jobService.deleteJob(job);
+        return ResponseEntity.ok().build();
+    }
+
 }
